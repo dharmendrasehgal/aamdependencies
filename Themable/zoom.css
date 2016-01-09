@@ -1,0 +1,39 @@
+.FloatingZoomToolbar {
+position: absolute;
+float: left;
+top: 40px !important;
+left: 10px !important;
+}
+.FloatingZoomToolbar .buttonZoomHomeNormal
+{
+background: url('Images/AA/ZoomIconSprite.png') no-repeat -892px -2px;
+width: 26px;
+height: 26px;
+}
+.FloatingZoomToolbar .buttonZoomOutNormal {
+background: url('Images/AA/ZoomIconSprite.png') no-repeat -832px -2px;
+width: 26px;
+height: 20px;
+}
+
+.FloatingZoomToolbar .buttonZoomInNormal {
+background: url('Images/AA/ZoomIconSprite.png') no-repeat -802px -2px;
+width: 26px;
+height: 25px;
+}
+.FloatingZoomToolbar .buttonZoomInNormal:hover {
+background: url('Images/AA/ZoomIconSprite.png') no-repeat -922px -2px;
+width: 26px;
+height: 25px;
+}
+
+.FloatingZoomToolbar .buttonZoomOutNormal:hover {
+background: url('Images/AA/ZoomIconSprite.png') no-repeat -952px -2px;
+width: 26px;
+height: 20px;
+}
+.FloatingZoomToolbar .buttonZoomHomeNormal:hover {
+background: url('Images/AA/ZoomIconSprite.png') no-repeat -1012px -2px;
+width: 26px;
+height: 26px;
+}

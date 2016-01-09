@@ -1,0 +1,62 @@
+.toggle-slide {
+  overflow: hidden;
+  cursor: pointer;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  direction: ltr;
+}
+.toggle-slide .toggle-on,
+.toggle-slide .toggle-off,
+.toggle-slide .toggle-blob {
+  float: left;
+}
+.toggle-slide .toggle-blob {
+  position: relative;
+  z-index: 99;
+  cursor: hand;
+  cursor: -webkit-grab;
+  cursor: -moz-grab;
+  cursor: grab;
+}
+
+.toggle-light {
+	display: inline-block;
+    float: left;
+}
+
+.toggle-light .toggle-slide {
+  border-radius: 9999px;
+  -webkit-box-shadow: 0 0 0 1px #999;
+          box-shadow: 0 0 0 1px #999;
+}
+.toggle-light .toggle-on,
+.toggle-light .toggle-off {
+  font-size: 11px;
+  font-weight: 500;
+}
+.toggle-light .toggle-on,
+.toggle-light .toggle-select .toggle-inner .active {
+  background: #fff;
+  /*-webkit-box-shadow: inset 2px 2px 6px rgba(0, 0, 0, 0.2);
+          box-shadow: inset 2px 2px 6px rgba(0, 0, 0, 0.2);
+  text-shadow: 1px 1px rgba(0, 0, 0, 0.2);*/
+  color: rgba(0, 0, 0, 0.6);
+}
+.toggle-light .toggle-off,
+.toggle-light .toggle-select .toggle-on {
+  color: rgba(0, 0, 0, 0.6);
+  background-color: #fff
+}
+.toggle-light .toggle-blob {
+  border-radius: 50px;
+  background-color: #45a31f;
+}
+.toggle-light .toggle-blob:hover {
+  background-color: #fff
+}
+
+.toggle-blob.active {
+    background-color: gray !important;
+}

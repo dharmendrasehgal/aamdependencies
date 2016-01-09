@@ -1,0 +1,99 @@
+.disclosure .logo{float:left;margin-right:10px; display:block !important;}
+#header, #footer,.exportView,.hide-in-export{display: none !important;}   
+section.row.divider{border:0 !important;}  
+.comparision-tooltip.charts-tooltip.custom  .comparision-tooltip-item {letter-spacing: 0px !important;}	 
+#country-list.in-export,#ShillerChart + .boxdisclaimer,#ShillerChart{margin-left:100px !important;}
+.infoData{overflow : hidden !important;}
+.cCheck {display:inline-block;}
+#yieldCurveCountry section.slvzr-last-child {width:230px;}
+.infoData .col-lg-2{float:left;}
+.currency .col-lg-3 .column-3{width: 388px;padding-right:0;}
+	.currency .col-lg-5 .column-4{border:none;width:100%;}
+	.currency  .cCheck{width:125px;}
+	.currency .fullBlock{margin-top:10px !important;}
+	.infoData .divider{margin: 2px !important;}
+	.fullBlock,.col-lg-8.updates,.updates .subtitle,.updates .title	{margin: 0 !important;}
+	.updates .subtitle,.updates .title{text-align:left !important;width: 85% !important;}
+	.updates .subtitle,.subCaption{margin-bottom:10px !important;}
+	.infoData .col-lg-7, .infoData .col-lg-1{ float:right !important; width:890px !important;}
+	.customTable table td{height:30px!important;}
+	.infoData #yieldCurveCountry .filters .col-lg-7.chartCenter{width:800px !important;}
+	.infoData #yieldCurveCountry .forecasted-item-details {top: 4px !important;}
+section.row.posRelative.exportWrpr {margin: 0 auto !important;width: 890px;}
+.customTable .captionGroup { width:840px !important;}
+.customTable .captionGroup dd.col3{ width:234px !important}
+.customTable .captionGroup dd.col4{ width:256px !important}
+.commodities .captionGroup dd.col3 { width:260px !important}
+.customTable table .is-Clicked{width:initial !important;position:static !important;top:0 !important;background:none !important;height: 53px !important;border:none !important;margin-left:0 !important;padding:0 !important;vertical-align: middle !important;}
+.yieldWrpr .customTable table th{ height: 53px !important;  line-height:17px !important; position:static !important; font-size:10px !important;margin-left:-1px !important;}
+.yieldWrpr .customTable table th div span,.yieldWrpr .customTable table th span {font-size:10px !important}
+.yieldWrpr #legendGrp {margin-top:102px !important;}
+.isortope th{padding-bottom:0 !important;}
+.commodities #legendGrp .wrpr .lgnd {font-size:10px !important;}	
+.customTable table th{position:static !important;height: 53px !important;margin-left:0 !important;padding:0 !important;} 
+ @media only screen {
+ section.currency .customTable table tbody tr:first-child, section.commodities  .customTable table tbody tr:first-child { border-top: 1px solid #ccc;}
+ }
+.infoData #legendGrp .wrpr {margin-bottom:2px !important; }
+.infoData .summary {width: 820px!important;}
+#mainContainer{margin-top:50px !important;}
+.cartswrpr .returnValues span,.cartswrpr .dataValues span{font-size:13px !important;}
+.mode {display:none!important;}
+.exportElements{margin-top:-500px;}
+
+.chart-callout  dl.bold dd {
+  width: 200px;
+}
+.chart-callout dl {
+  width: 200px;
+  line-height: 1.2;
+}
+
+.chart-callout {
+  width: 200px;
+  margin-top: 0px;
+  line-height: 15px;
+  font-size: 12px;
+  padding-right: 5px;
+ 
+}
+.chart-callout .callout-confidence-box {width:35px;}
+.chart-callout  dt {
+ width: 148px;
+}
+.chart-callout dl.bold dd {
+  width: 200px;
+}
+
+.chart-callout .content {
+  width: 150px;
+}
+.back
+{clear:both; top:20px;}
+.front
+{clear:both;}
+.exportElement{float:left;padding-bottom:10px;}
+.exportElements{margin-top:-630px;margin-left:55px;}
+.chart-callout  .callout-confidence {
+  margin-left: 3px;
+}
+
+.callout-confidence-box span.val {
+  position: relative;
+  bottom: -6px;
+  font-size: 10px;
+  font-weight: bold;
+}
+ #PortfolioComparisonContainer .Mktssummary
+ {
+	text-align:left;
+	width: 700px !important;
+	margin-top:-5px;
+	margin-left:20px;
+ }
+ .chart-callout .hubName {
+  width: 98px !important;}
+  .callout2{ margin-top:10px;}
+  #PortfolioComparisonCtrl .chart-callout .topSaperator{width: 200px !important;}
+  #PortfolioComparisonCtrl .chart-callout .topSaperator dd{margin-right:10px;width:190px !important;}
+  #DataTableContainer #sortableTable tr td{padding:8px 10px;box-sizing:border-box;}

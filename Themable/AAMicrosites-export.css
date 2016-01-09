@@ -1,0 +1,106 @@
+﻿.highcharts-activelabel{position:relative !important;}
+.customPortfoliosSymbol .dot {float:left;border-radius: 50%;width: 0px;height: 0px;margin:3px 5px 3px -2px; padding: 7px;clear:right;background: #8c8c8c;}
+.customPortfoliosSymbol .triangle {float:left;width: 0; height: 0; border-left: 7px solid transparent;border-right: 7px solid transparent;border-bottom: 13px solid;margin:-10px 5px 3px -2px; padding: 7px 0px 7px 0px;clear:right;background-color: transparent !important;border-bottom-color: #8c8c8c;}
+.legendCustomPortfolios {padding: 10px;float: right; line-height: 21px;}
+.legendCustomPortfolios li {float: left;display: inline-block;margin-left: 10px; color: #8c8c8c;}
+
+
+.charts-tooltip{width:204px;min-height:88px;height:inherit;padding:11px 14px;background:#b41c0a;position: relative;display:inline-block;margin-bottom:20px;}
+
+.charts-tooltip.usMkts.after,.charts-tooltip.usMkts.before{background: #b41c0a;}
+.charts-tooltip.emergingMkts.after,.charts-tooltip.emergingMkts.before{background: #003724;}
+.charts-tooltip.developedMkts.after,.charts-tooltip.developedMkts.before{background: #407dae;}
+.charts-tooltip.usTreasuary.after,.charts-tooltip.usTreasuary.before{background: #CE0000;}
+.charts-tooltip.usTips.after,.charts-tooltip.usTips.before{background: #F4B000;}
+.charts-tooltip.usCredit.after,.charts-tooltip.usCredit.before{background: #9E57B3;}
+.charts-tooltip.cashMkts.after,.charts-tooltip.cashMkts.before{background: #828282;}
+.charts-tooltip.portfolios.after,.charts-tooltip.portfolios.before{background: #f4b000;}
+.charts-tooltip.after{border-left-color: #b41c0a;}
+.charts-tooltip.before{}
+.charts-tooltip.before{}
+.charts-tooltip.before{border-right-color: #b41c0a;}
+.charts-tooltip.emergingMkts.after .charts-arrow{border-left-color:#003724;}
+.charts-tooltip.emergingMkts.before .charts-arrow{border-right-color: #003724;}
+.charts-tooltip.developedMkts.after .charts-arrow{border-left-color:#407dae;}
+.charts-tooltip.developedMkts.before .charts-arrow{border-right-color: #407dae;}
+.charts-tooltip.usTreasuary.after .charts-arrow{border-left-color:#CE0000;}
+.charts-tooltip.usTreasuary.before .charts-arrow{border-right-color: #CE0000;}
+.charts-tooltip.usTips.after .charts-arrow{border-left-color:#F4B000;}
+.charts-tooltip.usTips.before .charts-arrow{border-right-color: #F4B000;}
+.charts-tooltip.usCredit.after .charts-arrow{border-left-color:#9E57B3;}
+.charts-tooltip.usCredit.before .charts-arrow{border-right-color: #9E57B3;}
+.charts-tooltip.cashMkts.after .charts-arrow{border-left-color: #828282;}
+.charts-tooltip.cashMkts.before .charts-arrow{border-right-color: #828282;}
+.charts-tooltip.portfolios.after .charts-arrow{border-left-color: #f4b000;}
+.charts-tooltip.portfolios.before .charts-arrow{border-right-color: #f4b000;}
+.charts-tooltip.efficient-frontier-tooltip {background-color: transparent; border: #8c8c8c 1px solid; background: url(Images/AA/info24.png) no-repeat left top; background-position: 25px 25px; padding: 25px 25px 25px 40px;}
+.charts-tooltip.efficient-frontier-tooltip .tooltip-text{display: inline-block; padding: 0px 0px 0px 25px; font-size: 11px; line-height: 13px; text-transform: none; white-space: normal; text-align: justify; color: #8c8c8c;}
+.chart-callout {float:left;width: 188px;overflow:hidden;border: 2px solid #ccc;padding-right:10px;margin-right:5px;min-height:300px;  background: #FFFFFF;}
+.chart-callout .index{font-size:14px;margin:7px 0 7px 3px;white-space: normal !important;line-height: inherit !important;}
+.chart-callout h3{border-top: 1px solid #ccc;padding-top:6px;margin:0px 5px 0px 5px;}
+
+.chart-callout dl{width:175px;display:block;overflow:hidden;border:none;text-transform:none;margin:0px; padding:0px;}
+	.chart-callout dl.bold{font-size:14px;font-weight:700;padding:0px;padding-bottom:6px;margin:0px;}
+	.chart-callout .topSaperator{border-top:1px solid #ccc;margin:0px 5px 0px 5px !important;}
+	.chart-callout .topSaperator dd{margin-left:-10px;}
+	.chart-callout dl.bold dt{width:0px;}
+	.chart-callout dl.bold dd{width:172px;}
+	.chart-callout dl.firstchild{margin:-20px 0px 0px 0px;}
+	.chart-callout dt{display: inline-block;width:130px;text-align:right;margin-bottom:0px;margin-right:3px;}
+	.chart-callout dd {display: inline-block;text-align: right;width:37px;white-space:nowrap;margin-left:0px;margin-right:0px;border-x:1px solid black;}
+	.chart-callout dd .marks{font-family: "PT Sans";}
+	.chart-callout .dot {float:left;border-radius: 50%;width: 0px;height: 0px;margin:3px; padding: 7px;clear:right;}
+	.chart-callout .triangle {float:left;width: 0; height: 0; border-left: 7px solid transparent; border-right: 7px solid transparent; border-bottom: 13px solid;
+	margin:-10px 3px; padding: 7px 0px 7px 0px;clear:right;background-color: transparent !important;}
+	.chart-callout .usMkts{background: #b41c0a;border-bottom-color: #b41c0a;}
+    .chart-callout .emergingMkts{background: #006542;}
+    .chart-callout .developedMkts{background: #005293;}
+    .chart-callout .efficientMkts{background: #005293;}
+	.chart-callout .usTreasuary{background: #CE0000;}
+    .chart-callout .usTips{background: #F4B000;}
+    .chart-callout .usCredit{background: #9E57B3;}
+    .chart-callout .cashMkts{background: #828282;}
+    .chart-callout .portfolios{background: #f4b000;}
+	.chart-callout .usMkts,.chart-callout .emergingMkts,.chart-callout .developedMkts,.chart-callout .efficientMkts,.chart-callout .usTreasuary,.chart-callout .usTips,.chart-callout .usCredit,.chart-callout .cashMkts,.chart-callout .portfolios,.chart-callout .comAgriculture{opacity:0.75;filter: alpha(opacity=75);}
+.callout-confidence-box {float: left;height:40px;width:30px;background:grey;margin: 2px;text-align:center;}
+		.callout-confidence {margin-left: 15px;margin-right: 20px;margin-bottom: 62px;width: 100%;}
+  .callout-confidence .middle  {background:#F0F0F0 ;}
+    .callout-confidence .first, .callout-confidence .last  {background:#B8B8B8;}
+	.callout-confidence .sec  {background:#D8D8D8 ;}
+	.callout-confidence-box span.head {  font-size: 11px;font-weight: bold;color: gray;padding: 0;line-height:14px}
+  .callout-confidence-box span.val { position: relative;bottom: -6px;font-size: 10px; font-weight: bold;}
+  .callout-confidence  .middle span.head {  font-size: 9px;font-weight: bold;color: gray;padding: 3px;}
+  .chart-callout h3 {font-size:10px;color:#000000;font-family:arial;text-transform:uppercase;}
+  .chart-callout .content { font-size:11px;text-transform:uppercase;display:inline-block;width:155px;margin-top: 2px;border-x:1px solid black;}
+  .chart-callout .hubName { width:44px;text-align:left;margin-left:10px; font-size:10px;text-transform:uppercase;}
+  .chart-callout  .hasValue {color:#303030;}
+  .chart-callout  .hasValue >* {font-weight:bold;}
+  .chart-callout .hasNoValue {color:grey;}
+  .chart-callout .totalValue {color:#000000;font-size:14px;font-family:arial;}
+  
+  
+  
+.usMkts,.usMkts>*{color:#af0000 !important;}
+.cashMkts,.cashMkts>* {color:#000 !important;}
+.developedMkts,.referenceBenchmarks .developedMkts,.developedMkts>*:not(td),.referenceBenchmarks .developedMkts>*:not(td) {color:#005293 !important;}
+.emergingMkts,.referenceBenchmarks .emergingMkts,.emergingMkts>*:not(td),.referenceBenchmarks .emergingMkts>*:not(td){color:#006542 !important;}
+
+.comIndices,.comIndices>*:not(td),.comAgriculture,.comAgriculture>*:not(td),.comLivestock,.comLivestock>*:not(td),.comPreciousMetals,.comPreciousMetals>*:not(td),.comMetals,.comMetals>*:not(td),.comEnergy,.comEnergy>*:not(td){background:#9E57B3 !important;text-transform:uppercase;}
+.comIndices.before .charts-arrow{border-color: transparent;border-right-color:#9E57B3;}
+.comIndices.after .charts-arrow{border-color: transparent;border-left-color:#9E57B3;}
+.comAgriculture,.comAgriculture>*:not(td){background:#006542 !important;}
+.comAgriculture.before  .charts-arrow{border-color: transparent;border-right-color:#006542;}
+.comAgriculture.after  .charts-arrow{border-color: transparent;border-left-color:#006542;}
+.comLivestock,.comLivestock>*:not(td){background:#ce0000 !important;}
+.comLivestock.before  .charts-arrow{border-color: transparent;border-right-color:#ce0000;}
+.comLivestock.after  .charts-arrow{border-color: transparent;border-left-color:#ce0000;}
+.comPreciousMetals,.comPreciousMetals>*:not(td){background:#f4b000 !important;}
+.comPreciousMetals.before .charts-arrow{border-color: transparent;border-right-color:#f4b000;}
+.comPreciousMetals.after .charts-arrow{border-color: transparent;border-left-color:#f4b000;}
+.comMetals,.comMetals>*:not(td){background:#005293 !important;}
+.comMetals.before .charts-arrow{border-color: transparent;border-right-color:#005293;}
+.comMetals.after .charts-arrow{border-color: transparent;border-left-color:#005293;}
+.comEnergy,.comEnergy>*:not(td){background:#009999 !important;}
+.comEnergy.before .charts-arrow{border-right-color:#009999;}
+.comEnergy.after .charts-arrow{border-left-color:#009999;}
+.comEnergy .charts-arrow,.comMetals .charts-arrow,.comPreciousMetals .charts-arrow,.comLivestock .charts-arrow,.comAgriculture .charts-arrow,.comIndices .charts-arrow{background:transparent !important;}

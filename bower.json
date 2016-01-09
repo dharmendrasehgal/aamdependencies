@@ -1,0 +1,24 @@
+{
+  "name": "aamdependencies",
+  "authors": [
+    "dsehgal <dsehgal@sapient.com>"
+  ],
+  "description": "",
+  "main": "AAMInfographicsCustom.min.js",
+  "moduleType": [],
+  "keywords": [
+    "testbower"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery-1.7.2": "http://code.jquery.com/jquery-1.7.2.js"
+  }
+}
