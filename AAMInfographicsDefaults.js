@@ -1,5 +1,4 @@
-﻿(function($) {
-    //#region Function definitions and Global Initializer
+//#region Function definitions and Global Initializer
     // Initializing the AAGlobal variable
     window.AAGlobal = window.AAGlobal || {};
 
@@ -714,7 +713,7 @@
             html += '<div class="comparision-color" style="background-color:' + displayNameValues[i].Color + '"></div>';
 			var pointValue;
 			if(base)
-				pointValue = (pointObject.point) ? Math.pow(logBase,pointObject.point[yField]):null;
+				pointValue = (pointObject.point) ? Math.pow(base,pointObject.point[yField]):null;
 			else
 				pointValue = (pointObject.point) ? pointObject.point[yField]:null;
             if (suffixUnit == null){
@@ -1109,11 +1108,11 @@
     //** STARTS: Asset Allocation Global Base Defaults for Infographic Charts **/
     AAGlobal.BaseChartConfig = function() {
         this.Title = '';
-        this.Width = '920';
-        this.Height = '800';
+        this.Width = parseInt($('.container').width())-66;/*$('#HeroContainer').width()*/
+        this.Height = '948';
         this.BenchmarkColumn = 'IsBenchmarkPoint';
-        this.MarkerRadius = 9;
-        this.BenchmarkMarkerRadius = 9;
+        this.MarkerRadius = 7;
+        this.BenchmarkMarkerRadius = 7;
         this.FilterHeight = 60;
         this.InActiveOpacity = 0.1;
 
@@ -1126,14 +1125,18 @@
                 align: 'left',
                 verticalAlign: 'bottom',
                 x: 20,
-                y: -54
+                y: -59
             },
             style: {
-                'width': parseInt(this.Width) - 20,
+                width: parseInt(this.Width) - 20,
                 cursor: 'default',
-                'text-transform': 'none',
-                'font-family': 'Arial',
-                'font-size': '9px !important'
+                fontFamily: '"Whitney A", "Whitney B"',
+                fontStyle: 'italic',
+                fontWeight: '400',
+                color: '#898b8e',
+                fontSize: (isiPad || window.innerWidth < 1341)?'8px':'10px',
+                lineHeight: (isiPad || window.innerWidth < 1341)?'10px':'14px',
+				textTransform: 'none'
             },
             href: ''
         };
@@ -1170,17 +1173,17 @@
             }
             else
             {
-                var x = 695;
-			    var y = 450;
+                var x = $('#HeroContainer').width() - 191;
+			    var y = 225;
                 if(isiPad  && window.innerWidth < 979)
 			    {
-                    x = window.innerWidth - 250;
+                    x = $('#HeroContainer').width() - 191;
 				    y = y - 70;
                 }
-			    else if(isIE8Only)
+			    /*else if(isIE8Only)
 			    {
 				    y = 163;
-			    }
+			    }*/
                 return {  x: x, y: y};
             }
         },
@@ -1225,7 +1228,7 @@
             config.credits.position.y -= 5;
             config.credits.style.width = config.chart.width - 10;
 				
-            config.credits.LogoUrl = 'http://' + window.location.hostname + '/_LAYOUTS/1033/STYLES/Themable/Images/AA/ra_blue_logo.png';
+            config.credits.LogoUrl = '/content/dam/ra/images/highcharts/AA/ra_blue_logo.png';
 
             if (config.chart.type == 'scatter') {
                 $.each(config.series, function(exportSeriesIndex, exportSeries) {
@@ -1233,6 +1236,7 @@
                         exportSeries.dataLabels.enabled = true;
                     }
                 });
+                config.chart.marginTop = 150;
             } else {
                 if (config.plotOptions.series && config.plotOptions.series.dataLabels) {
                     config.plotOptions.series.dataLabels.customEnabled = true;
@@ -1303,10 +1307,13 @@
                     text: 'Volatility',
                     enabled: true,
                     style: {
-                        fontWeight: 'bold',
-                        fontSize: '18px',
-                        fontFamily: 'PT Sans',
-                        color: '#707070'
+                        fontFamily: '"Whitney A", "Whitney B"',
+						fontStyle: 'italic',
+						fontWeight: '400',
+						color: '#898b8e',
+						fontSize: '14px',
+						lineHeight: '33px',
+						letterSpacing: '0.5px'
                     }
                 },
                 min: 0,
@@ -1316,11 +1323,15 @@
                 gridLineWidth: 0,
                 tickWidth: 0,
                 labels: {
-                    format: '{value} %',
+                    format: '{value}%',
                     style: {
-                        fontSize: '14px',
-                        fontFamily: 'Arial',
-                        color: '#707070'
+                        fontFamily: '"Whitney A", "Whitney B"',
+						fontStyle: 'italic',
+						fontWeight: '400',
+						color: '#898b8e',
+						fontSize: '14px',
+                        lineHeight: '33px',
+						letterSpacing: '.5px'
                     }
                 }
 
@@ -1329,10 +1340,13 @@
                 title: {
                     text: 'Real Expected Returns (Unhedged USD)',
                     style: {
-                        fontWeight: 'bold',
-                        fontSize: '18px',
-                        fontFamily: 'PT Sans',
-                        color: '#707070'
+                        fontFamily: '"Whitney A", "Whitney B"',
+                        fontStyle: 'italic',
+						fontWeight: '400',
+                        color: '#898b8e',
+						fontSize: '14px',
+                        lineHeight: '33px',
+                        letterSpacing: '0.5px'                        
                     },
                     enabled: true
                 },
@@ -1351,11 +1365,15 @@
                     zIndex: 5
                 }],
                 labels: {
-                    format: '{value} %',
+                    format: '{value}%',
                     style: {
-                        fontSize: '14px',
-                        fontFamily: 'Arial',
-                        color: '#707070'
+                        fontFamily: '"Whitney A", "Whitney B"',
+						fontStyle: 'italic',
+						fontWeight: '400',
+						color: '#898b8e',
+						fontSize: '14px',
+                        lineHeight: '33px',
+						letterSpacing: '.5px'
                     }
                 }
             };
@@ -1438,7 +1456,7 @@
                         var marks = '<span class="marks">%</span>';
 				        var symbolClass = this.point.AreConstraintsDisabled?"triangle":"dot";
                         var indexNameHtml = ((this.point.IsCustomPortfolio)?
-						    '<h2 class="index"><div class="' + this.point.CssClass  + ' ' + symbolClass+ '"></div><a class="content" href="javascript:;" onclick="CaptureAAAnalytics(\'Infographic-\', \'Callout-Edit Portfolio\', location.pathname);$(\'#portfolioBtn\').trigger(\'click\');$(\'.portfolio-name\[data=\\\''+ this.point['ReferenceCode'] +'\\\']\').trigger(\'click\');">' + this.point['DisplayName'] + '</a></h2>':
+						    '<h2 class="index"><div class="' + this.point.CssClass + ' ' + symbolClass + '"></div><a class="content" href="javascript:;" onclick="javascript:OpenPortBuilder(\'' + this.point['DisplayName'] + '\')">' + this.point['DisplayName'] + '</a></h2>' :
 						    '<h2 class="index"><div class="' + this.point.CssClass  + ' ' + symbolClass + '"></div><span class="content">' + this.point['DisplayName'] + '</span></h2>');
                         
                         html = ((this.point.IsHubPortfolioModel || this.point.IsCustomPortfolio)?
@@ -1464,7 +1482,7 @@
 					    html+='<div class="callout-confidence-box sec"><span class="head">67%</span><br><span class="val">'+ (this.point.ConfidenceIntervalPositive1 != null ? (this.point.ConfidenceIntervalPositive1.toAbsFixed(1) + '<span class="marks">%</span>') : '-') +'</span></div>';
 					    html +='<div class="callout-confidence-box last"><span class="head">95%</span><br><span class="val">'+
 					    (this.point.ConfidenceIntervalPositive2 != null ? (this.point.ConfidenceIntervalPositive2.toAbsFixed(1) + '<span class="marks">%</span>') : '-') +'</span></div></div><div style="clear:both;"></div>'
-					    html += '<h3>Volatility</h3><dl class="bold firstchild"><dt></dt><dd>' + (this.point.Volatility != null ? (this.point.Volatility.toAbsFixed(1) + marks) : ' ') + '</dd></dl>';
+					    html += '<dl class="hasNoValue finalrow"><dt>Volatility</dt><dd>' + (this.point.Volatility != null ? (this.point.Volatility.toAbsFixed(1) + marks) : ' ') + '</dd></dl>';
                         html += '</div>';
 					    if(this.point.IsHubPortfolioModel || this.point.IsCustomPortfolio)
 					    {
@@ -1516,18 +1534,20 @@
 
     //***** EQUITIES ***********************************/
     AAGlobal.HeroEquitiesChartConfig = function() {
-        this.Width = '920';
-        this.Height = '800';
+        this.Width =  $('#HeroContainer').width();
+        this.Height = '948';
         this.YField = 'ExpectedReturn';
 
         this.Title = {
             text: '<Placeholder>',
             width: parseInt(this.Width) - 50,
             style: {
-                color: '#000000',
-                fontSize: '22px',
-                fontFamily: "PT Sans",
-                fontWeight: 'bold'
+                color: '#152c4d',
+                fontSize: (isiPad || window.innerWidth < 1341)?'1.4em':'34px',
+                fontFamily: '"Chronicle Display A", "Chronicle Display B"',
+                fontWeight: '600',
+                lineHeight: (isiPad || window.innerWidth < 1341)?'1.4em':'44px',
+                letterSpacing: '.2px'
             },
             align: 'left',
             x: 0,
@@ -1539,10 +1559,12 @@
             align: 'left',
             width: parseInt(this.Width) - 70,
             style: {
-                color: '#000000',
-                fontSize: '14px',
-                fontFamily: "PT Sans",
-                fontWeight: 'normal',
+                color: '#2b2a2a',
+                fontSize: (isiPad || window.innerWidth < 1341)?'.9em':'14px',
+                fontFamily: '"Whitney A", "Whitney B"',
+                fontStyle: 'normal',
+				fontWeight: '400',
+				lineHeight: (isiPad || window.innerWidth < 1341)?'12px':'22px',
                 textTransform: 'none'
             },
             x: 0,
@@ -1600,8 +1622,11 @@
                                         id: 'myPath'
                                     })
                                     .css({
-                                        color: '#000000',
-										fontSize:'12px',
+                                        color: '#2b2a2a',
+										fontSize: '14px',
+										fontWeight: '600',
+										fontStyle: 'italics',
+										letterSpacing: '.5px',
 										zIndex:20
                                     })
                                     .add();
@@ -1622,10 +1647,10 @@
 								});
 
 								chart.lbl.translate(e.currentTarget.plotX + chart.plotLeft - this.ShortDisplayName.width() - 18,e.currentTarget.plotY + chart.plotTop -chart.chartHeight - 15 );
-								if(isIE8Only)
+								/*if(isIE8Only)
 								{ 
 									$(chart.lbl.element).css('top', chart.chartHeight+parseInt($(chart.lbl.element).css('top'))-15+'px').css('margin-top','0px');
-								}
+								}*/
     
                                }
 							else
@@ -1707,7 +1732,7 @@
 						x: xPosBM,
 						y: yPosBM,
                         style: {
-                            fontSize: '12px',
+                            fontSize: '14px',
 							fontWeight:'normal'
                         },						
 						align: disPos
@@ -1762,7 +1787,7 @@
         },
         
 		Callback: function(chart) {
-    var isIE8OnlyLocal = (typeof isIE8Only != 'undefined')?isIE8Only:false;
+    /*var isIE8OnlyLocal = (typeof isIE8Only != 'undefined')?isIE8Only:false;*/
 	if(chart.userOptions.ExportConfig && chart.userOptions.CustomTooltipPoint)
             {
 				//try{
@@ -1819,9 +1844,11 @@
                 id: 'myPathm'
             })
             .css({
-                color: '#000000',
-                fontSize: '12px',
-                fontWeight: 'bold',
+                color: '#2b2a2a',
+                fontSize: '14px',
+                fontWeight: '600',
+				fontStyle: 'italics',
+				letterSpacing: '.5px',
 				zIndex:20
             })
             .add();
@@ -1871,7 +1898,6 @@
             .add();	
 		
     }
-	
 	
 	$("#confid1").remove();
 	$("#confid2").remove();
@@ -1942,10 +1968,10 @@
 		});
 	
 	chart.lblc1.translate(x-10 -27,confidencePositive1Y -chart.chartHeight - 15);
-	if(isIE8OnlyLocal)
+	/*if(isIE8OnlyLocal)
     { 
         $(chart.lblc1.element).css('top', chart.chartHeight+parseInt($(chart.lblc1.element).css('top'))+'px').css('margin-top','0px');
-    }
+    }*/
 	
 	
 	 chart.lblc2
@@ -1962,10 +1988,10 @@
 			
 		});
 	chart.lblc2.translate(x-10 -27,confidencePositive2Y -chart.chartHeight - 15) ;
-	if(isIE8OnlyLocal)
+	/*if(isIE8OnlyLocal)
     { 
         $(chart.lblc2.element).css('top', chart.chartHeight+parseInt($(chart.lblc2.element).css('top'))+'px').css('margin-top','0px');
-    }
+    }*/
 	
  chart.lblc3
         .show()
@@ -1981,10 +2007,10 @@
 			
 		});
 	chart.lblc3.translate(x-10 -27,confidenceNegative1Y -chart.chartHeight - 15);
-	if(isIE8OnlyLocal)
+	/*if(isIE8OnlyLocal)
     { 
         $(chart.lblc3.element).css('top', chart.chartHeight+parseInt($(chart.lblc3.element).css('top'))+'px').css('margin-top','0px');
-    }
+    }*/
  chart.lblc4
         .show()
         .attr({
@@ -1999,10 +2025,10 @@
 			
 		});
 	chart.lblc4.translate(x-10 -27,confidenceNegative2Y -chart.chartHeight - 15 );
-	if(isIE8OnlyLocal)
+	/*if(isIE8OnlyLocal)
     { 
         $(chart.lblc4.element).css('top', chart.chartHeight+parseInt($(chart.lblc4.element).css('top'))+'px').css('margin-top','0px');
-    }
+    }*/
 	if(point.ShortDisplayName)
 	{
 		chart.lbln
@@ -2020,14 +2046,14 @@
 			});
 		
 			chart.lbln.translate(point.plotX + chart.plotLeft - point.ShortDisplayName.width() - 18,point.plotY + chart.plotTop -chart.chartHeight - 15 );
-			if(isIE8OnlyLocal)
+			/*if(isIE8OnlyLocal)
 			{ 
 				$(chart.lbln.element).css('top', chart.chartHeight+parseInt($(chart.lbln.element).css('top'))-15+'px').css('margin-top','0px');
-			}
+			}*/
 	}
 	else
 	{
-		if(isIE8OnlyLocal)$(chart.container).css('margin-top', '0px');
+		/*if(isIE8OnlyLocal)$(chart.container).css('margin-top', '0px');*/
 		if (chart.lbln) {
 			chart.lbln.hide();
 			chart.pathconfid1.hide(); 
@@ -2045,7 +2071,7 @@
 	
 	PopulateExportChartConfig(chart,chart.customTooltipPoint);
 } else {
-	if(isIE8OnlyLocal)$(chart.container).css('margin-top', '0px');
+	/*if(isIE8OnlyLocal)$(chart.container).css('margin-top', '0px');*/
     if (chart.lbln) {
         chart.lbln.hide();
 		chart.pathconfid1.hide(); 
@@ -2066,8 +2092,8 @@
                 // drawing logo
                 chart.renderer.image(
                     chart.userOptions.credits.LogoUrl,
-                    chart.chartWidth - 149,
-                    5,
+                    24,
+                    650,
                     144,
                     48
                 ).add();
@@ -2118,9 +2144,11 @@
                     spacingTop: this.SpacingTop,
                     spacingLeft: 15,
                     spacingBottom: 70,
+					marginTop: 210,
+					marginBottom: 210,
                     style: {
-                        fontFamily: 'PT Sans',
-                        'text-transform': 'uppercase'
+                        fontFamily: '"Whitney A", "Whitney B"',
+                        textTransform: 'uppercase'
                     },
                    
                     events: {
@@ -2243,10 +2271,16 @@
                 zIndex: category.isActive ? (isBenchmark ? 0 : 1) : 0,
                 dataLabels: {
                     enabled: !this.HideDataLabels && ((isBenchmark) ? (category.isBenchmarkActive) : category.isActive),
-                    color: '#333333',
+                    color: '#898b8e',
                     style: {
-                        fontFamily: 'PT Sans',
-                        fontSize: '12px'
+						fontFamily: '"Whitney A", "Whitney B"',
+						fontStyle: 'normal',
+						fontWeight: '400',
+						color: '#898b8e',
+						fontSize: '14px',
+						lineHeight: '22px',
+						letterSpacing: '.75px',
+						textTransform: 'uppercase'
                     }
                 },
                 data: series
@@ -2309,9 +2343,9 @@
                 }
             };
 
-            if (AAGlobal.FirstTimeLoad && $.browser.msie) {
+            /*if (AAGlobal.FirstTimeLoad && $.browser.msie) {
                 plotOptions.series.animation = false;
-            }
+            }*/
             return plotOptions;
         },
 
@@ -2395,8 +2429,8 @@
                 // drawing logo
                 chart.renderer.image(
                     chart.userOptions.credits.LogoUrl,
-                    chart.plotLeft + chart.plotWidth - 149,
-                    5,
+                    chart.plotLeft + 24,//chart.plotLeft + chart.plotWidth - 149,
+                    650,
                     144,
                     48
                 ).add();
@@ -2447,20 +2481,23 @@
                                 'text-anchor': textAnchor
                                     //'transform' : 'translate(Math.abs(chart.plotLeft + shapeArgs.x + shapeArgs.width/ 2 + 5) + ' ' + Math.abs(chart.plotTop + shapeArgs.y + barHeight + insidePadding) + ')'
                             }).css({
-                                fontSize: '13px',
-                                color: '#fff',
-                                fontFamily: 'PT Sans',
-                                fontWeight: 'bold',
+                                fontFamily: '"Whitney A", "Whitney B"',
+                                color: ' #fff',
+                                fontStyle: 'italic',
+                                fontWeight: '400',
+                                fontSize: '18px',
+                                lineHeight: '33px',
+                                letterSpacing: '0.5px',
                                 zoom: 1
                             }).add();
 							currentHeight = shapeArgs.height;
                             var bBox = textbox.getBBox();
                             var element = $(textbox.element);
-                            if ($.browser && $.browser.msie && $.browser.version < 9) {
+                            /*if ($.browser && $.browser.msie && $.browser.version < 9) {
                                 paddingVertical -= 100;
                                 if (dataObject.y >= 0)
                                     $(element).css('top', (parseInt($(element).css('top')) + bBox.height) + 'px');
-                            }
+                            }*/
 									//bBox.y + (translateOffset * (bBox.height + Math.abs(insidePadding) + outsidePadding)) < paddingVertical
                             if ((bBox.height + Math.abs(insidePadding) + opacityPaddingAdjust) > shapeArgs.height) {
 
@@ -2476,24 +2513,24 @@
                                     translateOffset = -translateOffset;
                                     textAnchor = 'end';
                                     translateBack = shapeArgs.height;
-                                    if ($.browser && $.browser.msie && $.browser.version < 9) {
+                                    /*if ($.browser && $.browser.msie && $.browser.version < 9) {
                                         $(element).css('top', (parseInt($(element).css('top')) + ((translateOffset) * (shapeArgs.height)) + 'px'));
-                                    }
+                                    }*/
                                 } else {
-                                    if ($.browser && $.browser.msie && $.browser.version < 9) {
+                                    /*if ($.browser && $.browser.msie && $.browser.version < 9) {
                                         $(element).css('top', (parseInt($(element).css('top')) + ((translateOffset) * (bBox.height + opacityPaddingAdjust)) + 'px'));
-                                    }
+                                    }*/
                                 }
                                 element.attr('transform', 'translate(0, ' + translateOffset * (translateBack) + ') ' + element.attr('transform'));
                                 element.css({
-                                    'color': '#707070',
-                                    fill: '#707070'
+                                    'color': '#898b8e',
+                                    fill: '#898b8e'
                                 });
                             } else {
-                                if ($.browser && $.browser.msie && $.browser.version < 9) {
+                                /*if ($.browser && $.browser.msie && $.browser.version < 9) {
 
                                     $(element).css('background-color', 'transparent');
-                                }
+                                }*/
                             }
 												
                         }
@@ -2513,8 +2550,10 @@
                     spacingTop: 175,
                     spacingLeft: 15,
                     spacingBottom: 70,
-                    style: {
-                        fontFamily: 'PT Sans',
+					marginTop: 210,
+					marginBottom: 190,
+					style: {
+                        'font-family': '"Whitney A", "Whitney B"',
                         'text-transform': 'uppercase'
                     },
                     events: {
@@ -2627,9 +2666,9 @@
                 }
             };
 
-            if (AAGlobal.FirstTimeLoad && $.browser.msie) {
+            /*if (AAGlobal.FirstTimeLoad && $.browser.msie) {
                 plotOptions.series.animation = false;
-            }
+            }*/
             return plotOptions;
         },
 
@@ -2709,8 +2748,8 @@
                 // drawing logo
                 chart.renderer.image(
                     chart.userOptions.credits.LogoUrl,
-                    chart.plotLeft + chart.plotWidth - 149,
-                    5,
+                    chart.plotLeft + 24,//chart.plotLeft + chart.plotWidth - 149,
+                    650,
                     144,
                     48
                 ).add();
@@ -2759,20 +2798,20 @@
                                 'text-anchor': textAnchor
                                     //'transform' : 'translate(Math.abs(chart.plotLeft + shapeArgs.x + shapeArgs.width/ 2 + 5) + ' ' + Math.abs(chart.plotTop + shapeArgs.y + barHeight + insidePadding) + ')'
                             }).css({
-                                fontSize: '13px',
+                                fontSize: '14px',
                                 color: '#fff',
-                                fontFamily: 'PT Sans',
+                                fontFamily: '"Whitney A", "Whitney B"',
                                 fontWeight: 'bold',
                                 zoom: 1
                             }).add();
 
                             var bBox = textbox.getBBox();
                             var element = $(textbox.element);
-                            if ($.browser && $.browser.msie && $.browser.version < 9) {
+                            /*if ($.browser && $.browser.msie && $.browser.version < 9) {
                                 paddingVertical -= 100;
                                 if (dataObject.y >= 0)
                                     $(element).css('top', (parseInt($(element).css('top')) + bBox.height) + 'px');
-                            }
+                            }*/
 
                             if ((bBox.height + Math.abs(insidePadding) + opacityPaddingAdjust) > shapeArgs.height) {
 
@@ -2783,13 +2822,13 @@
                                     translateOffset = -translateOffset;
                                     textAnchor = 'end';
                                     translateBack = shapeArgs.height;
-                                    if ($.browser && $.browser.msie && $.browser.version < 9) {
+                                    /*if ($.browser && $.browser.msie && $.browser.version < 9) {
                                         $(element).css('top', (parseInt($(element).css('top')) + ((translateOffset) * (shapeArgs.height)) + 'px'));
-                                    }
+                                    }*/
                                 } else {
-                                    if ($.browser && $.browser.msie && $.browser.version < 9) {
+                                    /*if ($.browser && $.browser.msie && $.browser.version < 9) {
                                         $(element).css('top', (parseInt($(element).css('top')) + ((translateOffset) * (bBox.height + opacityPaddingAdjust)) + 'px'));
-                                    }
+                                    }*/
                                 }
                                 element.attr('transform', 'translate(0, ' + translateOffset * (translateBack) + ') ' + element.attr('transform'));
                                 element.css({
@@ -2797,10 +2836,10 @@
                                     fill: '#707070'
                                 });
                             } else {
-                                if ($.browser && $.browser.msie && $.browser.version < 9) {
+                                /*if ($.browser && $.browser.msie && $.browser.version < 9) {
 
                                     $(element).css('background-color', 'transparent');
-                                }
+                                }*/
                             }
 
                         }
@@ -2819,8 +2858,10 @@
                     spacingTop: 175,
                     spacingLeft: 15,
                     spacingBottom: 70,
+					marginTop: 210,
+					marginBottom: 190,
                     style: {
-                        fontFamily: 'PT Sans',
+                        'font-family': '"Whitney A", "Whitney B"',
                         'text-transform': 'uppercase'
                     },
                     events: {
@@ -2894,10 +2935,13 @@
                 text: 'Markets',
                 offset: 10,
                 style: {
-                    fontWeight: 'bold',
-                    fontSize: '18px',
-                    fontFamily: 'PT Sans',
-                    color: '#707070'
+                    fontFamily: '"Whitney A", "Whitney B"',
+					fontStyle: 'italic',
+					fontWeight: '400',
+					color: '#898b8e',
+					fontSize: '14px',
+					lineHeight: '33px',
+					letterSpacing: '0.5px'
                 },
                 enabled: true
             },
@@ -2915,10 +2959,12 @@
             text: '<Placeholder>',
             width: parseInt(this.Width) - 50,
             style: {
-                color: '#000000',
-                fontSize: '22px',
-                fontFamily: "PT Sans",
-                fontWeight: 'bold'
+                color: '#152c4d',
+                fontSize: (isiPad || window.innerWidth < 1341)?'1.4em':'34px',
+                fontFamily: '"Chronicle Display A", "Chronicle Display B"',
+                fontWeight: '600',
+                lineHeight: (isiPad || window.innerWidth < 1341)?'1.4em':'44px',
+                letterSpacing: '.2px'
             },
             align: 'left',
             x: 0,
@@ -2930,10 +2976,12 @@
             align: 'left',
             width: parseInt(this.Width) - 70,
             style: {
-                color: '#000000',
-                fontSize: '14px',
-                fontFamily: "PT Sans",
-                fontWeight: 'normal',
+                color: '#2b2a2a',
+                fontSize: (isiPad || window.innerWidth < 1341)?'.9em':'14px',
+                fontFamily: '"Whitney A", "Whitney B"',
+                fontStyle: 'normal',
+				fontWeight: '400',
+				lineHeight: (isiPad || window.innerWidth < 1341)?'12px':'22px',
                 textTransform: 'none'
             },
             x: 0,
@@ -3019,10 +3067,12 @@
             text: '<Placeholder>',
             width: parseInt(this.Width) - 50,
             style: {
-                color: '#000000',
-                fontSize: '22px',
-                fontFamily: "PT Sans",
-                fontWeight: 'bold'
+                color: '#152c4d',
+                fontSize: (isiPad || window.innerWidth < 1341)?'1.4em':'34px',
+                fontFamily: '"Chronicle Display A", "Chronicle Display B"',
+                fontWeight: '600',
+                lineHeight: (isiPad || window.innerWidth < 1341)?'1.4em':'44px',
+                letterSpacing: '.2px'
             },
             align: 'left',
             x: 0,
@@ -3034,10 +3084,12 @@
             align: 'left',
             width: parseInt(this.Width) - 70,
             style: {
-                color: '#000000',
-                fontSize: '14px',
-                fontFamily: "PT Sans",
-                fontWeight: 'normal',
+                color: '#2b2a2a',
+                fontSize: (isiPad || window.innerWidth < 1341)?'.9em':'14px',
+                fontFamily: '"Whitney A", "Whitney B"',
+                fontStyle: 'normal',
+				fontWeight: '400',
+				lineHeight: (isiPad || window.innerWidth < 1341)?'12px':'22px',
                 textTransform: 'none'
             },
             x: 0,
@@ -3050,10 +3102,12 @@
             align: 'left',
             width: parseInt(this.Width) - 70,
             style: {
-                color: '#000000',
+                color: '#2b2a2a',
                 fontSize: '14px',
-                fontFamily: "PT Sans",
-                fontWeight: 'normal',
+                fontStyle: 'normal',
+                lineHeight: '22px',
+                fontFamily: '"Whitney A", "Whitney B"',
+                fontWeight: '400',
                 textTransform: 'none'
             },
             x: 0,
@@ -3068,7 +3122,7 @@
             style: {
                 color: '#000000',
                 fontSize: '14px',
-                fontFamily: "PT Sans",
+                fontFamily: '"Whitney A", "Whitney B"',
                 fontWeight: 'normal',
                 textTransform: 'none'
             },
@@ -3094,8 +3148,8 @@
                 // drawing logo
                 chart.renderer.image(
                     chart.userOptions.credits.LogoUrl,
-                    chart.chartWidth - 149,
-                    5,
+                    24,
+                    650,
                     144,
                     48
                 ).add();
@@ -3268,10 +3322,13 @@
                 enabled: true,
                 offset: 10,
                 style: {
-                    fontWeight: 'bold',
-                    fontSize: '18px',
-                    fontFamily: 'PT Sans',
-                    color: '#707070'
+                    fontFamily: '"Whitney A", "Whitney B"',
+					fontStyle: 'italic',
+					fontWeight: '400',
+					color: '#898b8e',
+					fontSize: '14px',
+					lineHeight: '33px',
+					letterSpacing: '0.5px'
                 },
                 text: 'Asset Classes'
             },
@@ -3289,10 +3346,12 @@
             text: '<Placeholder>',
             width: parseInt(this.Width) - 50,
             style: {
-                color: '#000000',
-                fontSize: '22px',
-                fontFamily: "PT Sans",
-                fontWeight: 'bold'
+                color: '#152c4d',
+                fontSize: (isiPad || window.innerWidth < 1341)?'1.4em':'34px',
+                fontFamily: '"Chronicle Display A", "Chronicle Display B"',
+                fontWeight: '600',
+                lineHeight: (isiPad || window.innerWidth < 1341)?'1.4em':'44px',
+                letterSpacing: '.2px'
             },
             align: 'left',
             x: 0,
@@ -3304,10 +3363,12 @@
             align: 'left',
             width: parseInt(this.Width) - 70,
             style: {
-                color: '#000000',
-                fontSize: '14px',
-                fontFamily: "PT Sans",
-                fontWeight: 'normal',
+                color: '#2b2a2a',
+                fontSize: (isiPad || window.innerWidth < 1341)?'.9em':'14px',
+                fontFamily: '"Whitney A", "Whitney B"',
+                fontStyle: 'normal',
+				fontWeight: '400',
+				lineHeight: (isiPad || window.innerWidth < 1341)?'12px':'22px',
                 textTransform: 'none'
             },
             x: 0,
@@ -3325,7 +3386,8 @@
         this.HideDataLabels = hideDataLabels;
         this.LineWidth = 0;
         this.SpacingRight = 75;
-		this.Height = 820;
+		this.Width = parseInt($('.container').width())-66;
+		this.Height = 948;
 		this.SpacingTop = 195;
         this.XField = 'Volatility';
         this.CategoryField = 'GroupName';
@@ -3365,10 +3427,12 @@
             text: '<Placeholder>',
             width: parseInt(this.Width) - 50,
             style: {
-                color: '#000000',
-                fontSize: '22px',
-                fontFamily: "PT Sans",
-                fontWeight: 'bold'
+                color: '#152c4d',
+                fontSize: (isiPad || window.innerWidth < 1341)?'1.4em':'34px',
+                fontFamily: '"Chronicle Display A", "Chronicle Display B"',
+                fontWeight: '600',
+                lineHeight: (isiPad || window.innerWidth < 1341)?'1.4em':'44px',
+                letterSpacing: '.2px'
             },
             align: 'left',
             x: 0,
@@ -3380,10 +3444,12 @@
             align: 'left',
             width: parseInt(this.Width) - 70,
             style: {
-                color: '#000000',
-                fontSize: '14px',
-                fontFamily: "PT Sans",
-                fontWeight: 'normal',
+                color: '#2b2a2a',
+                fontSize: (isiPad || window.innerWidth < 1341)?'.9em':'14px',
+                fontFamily: '"Whitney A", "Whitney B"',
+                fontStyle: 'normal',
+				fontWeight: '400',
+				lineHeight: (isiPad || window.innerWidth < 1341)?'12px':'22px',
                 textTransform: 'none'
             },
             x: 0,
@@ -3458,10 +3524,13 @@
                 enabled: true,
                 offset: 10,
                 style: {
-                    fontWeight: 'bold',
-                    fontSize: '18px',
-                    fontFamily: 'PT Sans',
-                    color: '#707070'
+                    fontFamily: '"Whitney A", "Whitney B"',
+					fontStyle: 'italic',
+					fontWeight: '400',
+					color: '#898b8e',
+					fontSize: '14px',
+					lineHeight: '33px',
+					letterSpacing: '0.5px'
                 },
                 text: 'Portfolios'
             },
@@ -3479,10 +3548,12 @@
             text: '<Placeholder>',
             width: parseInt(this.Width) - 50,
             style: {
-                color: '#000000',
-                fontSize: '22px',
-                fontFamily: "PT Sans",
-                fontWeight: 'bold'
+                color: '#152c4d',
+                fontSize: (isiPad || window.innerWidth < 1341)?'1.4em':'34px',
+                fontFamily: '"Chronicle Display A", "Chronicle Display B"',
+                fontWeight: '600',
+                lineHeight: (isiPad || window.innerWidth < 1341)?'1.4em':'44px',
+                letterSpacing: '.2px'
             },
             align: 'left',
             x: 0,
@@ -3496,7 +3567,7 @@
             style: {
                 color: '#000000',
                 fontSize: '14px',
-                fontFamily: "PT Sans",
+                fontFamily: '"Whitney A", "Whitney B"',
                 fontWeight: 'normal',
                 textTransform: 'none'
             },
@@ -3543,9 +3614,9 @@
                 }
             };
 
-            if (AAGlobal.FirstTimeLoad && $.browser.msie) {
+            /*if (AAGlobal.FirstTimeLoad && $.browser.msie) {
                 plotOptions.series.animation = false;
-            }
+            }*/
             return plotOptions;
         },
 
@@ -3624,8 +3695,8 @@
                 // drawing logo
                 chart.renderer.image(
                     chart.userOptions.credits.LogoUrl,
-                    chart.plotLeft + chart.plotWidth - 149,
-                    5,
+                    24,//chart.plotLeft + chart.plotWidth - 149,
+                    650,
                     144,
                     48
                 ).add();
@@ -3679,18 +3750,18 @@
                             }).css({
                                 fontSize: '13px',
                                 color: '#fff',
-                                fontFamily: 'PT Sans',
+                                fontFamily: '"Whitney A", "Whitney B"',
                                 fontWeight: 'bold',
                                 zoom: 1
                             }).add();
 							currentHeight = shapeArgs.height;
                             var bBox = textbox.getBBox();
                             var element = $(textbox.element);
-                            if ($.browser && $.browser.msie && $.browser.version < 9) {
+                            /*if ($.browser && $.browser.msie && $.browser.version < 9) {
                                 paddingHorizontal -= 3;
                                 if (dataObject.y >= 0)
                                     $(element).css('left', (parseInt($(element).css('left')) - bBox.width) + 'px');
-                            }
+                            }*/
 
                             if ((bBox.width + Math.abs(insidePadding) + opacityPaddingAdjust) > shapeArgs.height) {
 
@@ -3707,17 +3778,17 @@
 									   translateOffset = -translateOffset;
 									   textAnchor = 'end';
 									   translateBack = shapeArgs.height;									   
-									   if ($.browser && $.browser.msie && $.browser.version < 9) {
+									   /*if ($.browser && $.browser.msie && $.browser.version < 9) {
 										   $(element).css('left', (parseInt($(element).css('left')) + ((translateOffset) * (shapeArgs.height)) + 'px'));
-									   }
+									   }*/
                                 } else {
                                     var indexer = 1;
                                     if (dataObject.y < 0) {
                                         indexer = -1;
                                     }
-									if ($.browser && $.browser.msie && $.browser.version < 9) {
+									/*if ($.browser && $.browser.msie && $.browser.version < 9) {
 										   $(element).css('left', (parseInt($(element).css('left')) + (translateOffset * (bBox.width + opacityPaddingAdjust)) + 'px'));
-									   }
+									   }*/
                                 }
                                 element.attr('transform', 'translate(' + translateOffset * (translateBack) + ',0) ' + element.attr('transform'));
                                  element.css({
@@ -3725,9 +3796,9 @@
                                      fill: '#707070'
                                  });
                             } else {
-                               if ($.browser && $.browser.msie && $.browser.version < 9) {
+                               /*if ($.browser && $.browser.msie && $.browser.version < 9) {
                                    $(element).css('background-color', 'transparent');
-                               }
+                               }*/
                             }
 
                         }
@@ -3746,8 +3817,10 @@
                     spacingTop: 195,
                     spacingLeft: 15,
                     spacingBottom: 70,
+					marginTop: 210,
+					marginBottom: 190,
                     style: {
-                        fontFamily: 'PT Sans',
+                        'font-family': '"Whitney A", "Whitney B"',
                         'text-transform': 'uppercase'
                     },
                     events: {
@@ -3841,11 +3914,13 @@
             text: '<Placeholder>',
             width: parseInt(this.Width) - 50,
             style: {
-                color: '#000000',
-                fontSize: '22px',
-                fontFamily: "PT Sans",
-                fontWeight: 'bold'
-            },
+                color: '#152c4d',
+                fontSize: (isiPad || window.innerWidth < 1341)?'1.4em':'34px',
+                fontFamily: '"Chronicle Display A", "Chronicle Display B"',
+                fontWeight: '600',
+                lineHeight: (isiPad || window.innerWidth < 1341)?'1.4em':'44px',
+                letterSpacing: '.2px'
+             },
             align: 'left',
             x: 0,
             y: -138,
@@ -3857,10 +3932,12 @@
             align: 'left',
             width: parseInt(this.Width) - 70,
             style: {
-                color: '#000000',
-                fontSize: '14px',
-                fontFamily: "PT Sans",
-                fontWeight: 'normal',
+                color: '#2b2a2a',
+                fontSize: (isiPad || window.innerWidth < 1341)?'.9em':'14px',
+                fontFamily: '"Whitney A", "Whitney B"',
+                fontStyle: 'normal',
+				fontWeight: '400',
+				lineHeight: (isiPad || window.innerWidth < 1341)?'12px':'22px',
                 textTransform: 'none'
             },
             x: 0,
@@ -3956,10 +4033,13 @@
                 text: 'Markets',
                 offset: 10,
                 style: {
-                    fontWeight: 'bold',
-                    fontSize: '18px',
-                    fontFamily: 'PT Sans',
-                    color: '#707070'
+					fontFamily: '"Whitney A", "Whitney B"',
+					fontStyle: 'italic',
+					fontWeight: '400',
+					color: '#898b8e',
+					fontSize: '14px',
+					lineHeight: '33px',
+					letterSpacing: '0.5px'
                 },
                 enabled: true
             },
@@ -3977,10 +4057,12 @@
             text: '<Placeholder>',
             width: parseInt(this.Width) - 50,
             style: {
-                color: '#000000',
-                fontSize: '22px',
-                fontFamily: "PT Sans",
-                fontWeight: 'bold'
+                color: '#152c4d',
+                fontSize: (isiPad || window.innerWidth < 1341)?'1.4em':'34px',
+                fontFamily: '"Chronicle Display A", "Chronicle Display B"',
+                fontWeight: '600',
+                lineHeight: (isiPad || window.innerWidth < 1341)?'1.4em':'44px',
+                letterSpacing: '.2px'
             },
             align: 'left',
             x: 0,
@@ -3992,10 +4074,12 @@
             width: parseInt(this.Width) - 70,
             align: 'left',
             style: {
-                color: '#000000',
-                fontSize: '14px',
-                fontFamily: "PT Sans",
-                fontWeight: 'normal',
+                color: '#2b2a2a',
+                fontSize: (isiPad || window.innerWidth < 1341)?'.9em':'14px',
+                fontFamily: '"Whitney A", "Whitney B"',
+                fontStyle: 'normal',
+				fontWeight: '400',
+				lineHeight: (isiPad || window.innerWidth < 1341)?'12px':'22px',
                 textTransform: 'none'
             },
             x: 0,
@@ -4028,10 +4112,12 @@
             text: '<Placeholder>',
             width: parseInt(this.Width) - 50,
             style: {
-                color: '#000000',
-                fontSize: '22px',
-                fontFamily: "PT Sans",
-                fontWeight: 'bold'
+                color: '#152c4d',
+                fontSize: (isiPad || window.innerWidth < 1341)?'1.4em':'34px',
+                fontFamily: '"Chronicle Display A", "Chronicle Display B"',
+                fontWeight: '600',
+                lineHeight: (isiPad || window.innerWidth < 1341)?'1.4em':'44px',
+                letterSpacing: '.2px'
             },
             align: 'left',
             x: 0,
@@ -4043,10 +4129,12 @@
             align: 'left',
             width: parseInt(this.Width) - 70,
             style: {
-                color: '#000000',
-                fontSize: '14px',
-                fontFamily: "PT Sans",
-                fontWeight: 'normal',
+                color: '#2b2a2a',
+                fontSize: (isiPad || window.innerWidth < 1341)?'.9em':'14px',
+                fontFamily: '"Whitney A", "Whitney B"',
+                fontStyle: 'normal',
+				fontWeight: '400',
+				lineHeight: (isiPad || window.innerWidth < 1341)?'12px':'22px',
                 textTransform: 'none'
             },
             x: 0,
@@ -4117,10 +4205,13 @@
                 text: 'Markets',
                 offset: 10,
                 style: {
-                    fontWeight: 'bold',
-                    fontSize: '18px',
-                    fontFamily: 'PT Sans',
-                    color: '#707070'
+                    fontFamily: '"Whitney A", "Whitney B"',
+					fontStyle: 'italic',
+					fontWeight: '400',
+					color: '#898b8e',
+					fontSize: '14px',
+					lineHeight: '33px',
+					letterSpacing: '0.5px'
                 },
                 enabled: true
             },
@@ -4175,10 +4266,12 @@
             text: '<Placeholder>',
             width: parseInt(this.Width) - 50,
             style: {
-                color: '#000000',
-                fontSize: '22px',
-                fontFamily: "PT Sans",
-                fontWeight: 'bold'
+                color: '#152c4d',
+                fontSize: (isiPad || window.innerWidth < 1341)?'1.4em':'34px',
+                fontFamily: '"Chronicle Display A", "Chronicle Display B"',
+                fontWeight: '600',
+                lineHeight: (isiPad || window.innerWidth < 1341)?'1.4em':'44px',
+                letterSpacing: '.2px'
             },
             align: 'left',
             x: 0,
@@ -4190,10 +4283,12 @@
             align: 'left',
             width: parseInt(this.Width) - 70,
             style: {
-                color: '#000000',
-                fontSize: '14px',
-                fontFamily: "PT Sans",
-                fontWeight: 'normal',
+                color: '#2b2a2a',
+                fontSize: (isiPad || window.innerWidth < 1341)?'.9em':'14px',
+                fontFamily: '"Whitney A", "Whitney B"',
+                fontStyle: 'normal',
+				fontWeight: '400',
+				lineHeight: (isiPad || window.innerWidth < 1341)?'12px':'22px',
                 textTransform: 'none'
             },
             x: 0,
@@ -4228,10 +4323,12 @@
             text: '<Placeholder>',
             width: parseInt(this.Width) - 50,
             style: {
-                color: '#000000',
-                fontSize: '22px',
-                fontFamily: "PT Sans",
-                fontWeight: 'bold'
+                color: '#152c4d',
+                fontSize: (isiPad || window.innerWidth < 1341)?'1.4em':'34px',
+                fontFamily: '"Chronicle Display A", "Chronicle Display B"',
+                fontWeight: '600',
+                lineHeight: (isiPad || window.innerWidth < 1341)?'1.4em':'44px',
+                letterSpacing: '.2px'
             },
             align: 'left',
             x: 0,
@@ -4243,10 +4340,12 @@
             align: 'left',
             width: parseInt(this.Width) - 70,
             style: {
-                color: '#000000',
-                fontSize: '14px',
-                fontFamily: "PT Sans",
-                fontWeight: 'normal',
+                color: '#2b2a2a',
+                fontSize: (isiPad || window.innerWidth < 1341)?'.9em':'14px',
+                fontFamily: '"Whitney A", "Whitney B"',
+                fontStyle: 'normal',
+				fontWeight: '400',
+				lineHeight: (isiPad || window.innerWidth < 1341)?'12px':'22px',
                 textTransform: 'none'
             },
             x: 0,
@@ -4347,10 +4446,13 @@ AAGlobal.CommoditiesScatterChartConfig.prototype, {
                 text: 'Commodities',
                 offset: 10,
                 style: {
-                    fontWeight: 'bold',
-                    fontSize: '18px',
-                    fontFamily: 'PT Sans',
-                    color: '#707070'
+                    fontFamily: '"Whitney A", "Whitney B"',
+					fontStyle: 'italic',
+					fontWeight: '400',
+					color: '#898b8e',
+					fontSize: '14px',
+					lineHeight: '33px',
+					letterSpacing: '0.5px'
                 },
                 enabled: true
             },
@@ -4367,10 +4469,13 @@ AAGlobal.CommoditiesScatterChartConfig.prototype, {
             title: {
                 text: 'Real Expected Returns (Unhedged USD)',
                 style: {
-                    fontWeight: 'bold',
-                    fontSize: '18px',
-                    fontFamily: 'PT Sans',
-                    color: '#707070'
+                    fontFamily: '"Whitney A", "Whitney B"',
+					fontStyle: 'italic',
+					fontWeight: '400',
+					color: '#898b8e',
+					fontSize: '14px',
+					lineHeight: '33px',
+					letterSpacing: '0.5px'
                 },
                 enabled: true
             },
@@ -4389,11 +4494,15 @@ AAGlobal.CommoditiesScatterChartConfig.prototype, {
                 zIndex: 5
             }],
             labels: {
-                format: '{value} %',
+                format: '{value}%',
                 style: {
-                    fontSize: '14px',
-                    fontFamily: 'Arial',
-                    color: '#707070'
+                    fontFamily: '"Whitney A", "Whitney B"',
+					fontStyle: 'italic',
+					fontWeight: '400',
+					color: '#898b8e',
+					fontSize: '14px',
+					lineHeight: '33px',
+					letterSpacing: '.5px'
                 }
             }
         };
@@ -4475,10 +4584,12 @@ AAGlobal.CommoditiesScatterChartConfig.prototype, {
             text: '<Placeholder>',
             width: parseInt(this.Width) - 50,
             style: {
-                color: '#000000',
-                fontSize: '22px',
-                fontFamily: "PT Sans",
-                fontWeight: 'bold'
+                color: '#152c4d',
+                fontSize: (isiPad || window.innerWidth < 1341)?'1.4em':'34px',
+                fontFamily: '"Chronicle Display A", "Chronicle Display B"',
+                fontWeight: '600',
+                lineHeight: (isiPad || window.innerWidth < 1341)?'1.4em':'44px',
+                letterSpacing: '.2px'
             },
             align: 'left',
             x: 0,
@@ -4490,10 +4601,12 @@ AAGlobal.CommoditiesScatterChartConfig.prototype, {
             align: 'left',
             width: parseInt(this.Width) - 70,
             style: {
-                color: '#000000',
-                fontSize: '14px',
-                fontFamily: "PT Sans",
-                fontWeight: 'normal',
+                color: '#2b2a2a',
+                fontSize: (isiPad || window.innerWidth < 1341)?'.9em':'14px',
+                fontFamily: '"Whitney A", "Whitney B"',
+                fontStyle: 'normal',
+				fontWeight: '400',
+				lineHeight: (isiPad || window.innerWidth < 1341)?'12px':'22px',
                 textTransform: 'none'
             },
             x: 0,
@@ -4511,6 +4624,7 @@ AAGlobal.CommoditiesScatterChartConfig.prototype, {
     //#region Heat Map Chart COnfiguration
     //** RISK HEATMAP BEGIN **//
     AAGlobal.RisksHeatMapChartConfig = function(correlationType, hideDataLabels) {
+        
         this.CategoryField = 'DataType';
         this.HideDataLabels = hideDataLabels;
         this.InActiveOpacity = 0.1;
@@ -4566,10 +4680,12 @@ AAGlobal.CommoditiesScatterChartConfig.prototype, {
             text: '<Placeholder>',
             width: parseInt(this.Width) - 50,
             style: {
-                color: '#000000',
-                fontSize: '18px',
-                fontFamily: "PT Sans",
-                fontWeight: 'bold'
+                color: '#152c4d',
+                fontSize: (isiPad || window.innerWidth < 1341)?'1.4em':'34px',
+                fontFamily: '"Chronicle Display A", "Chronicle Display B"',
+                fontWeight: '600',
+                lineHeight: (isiPad || window.innerWidth < 1341)?'1.4em':'44px',
+                letterSpacing: '.2px'
             },
             align: 'left',
             y: -138,
@@ -4586,10 +4702,13 @@ AAGlobal.CommoditiesScatterChartConfig.prototype, {
             labels: {
                 rotation: -65,
                 style: {
-                    color: '#000000',
-                    fontSize: '14px',
-                    fontFamily: "PT Sans",
-                    fontWeight: 'normal'
+                    fontFamily: '"Whitney A", "Whitney B"',
+					fontStyle: 'italic',
+					fontWeight: '400',
+					color: '#898b8e',
+					fontSize: '14px',
+					lineHeight: '33px',
+					letterSpacing: '.5px'
                 },
             },
             offset: 80,
@@ -4608,10 +4727,13 @@ AAGlobal.CommoditiesScatterChartConfig.prototype, {
                 overflow: 'justify',
                 step: 1,
                 style: {
-                    color: '#333333',
-                    fontSize: '14px',
-                    fontFamily: "PT Sans",
-                    fontWeight: 'normal'
+                    fontFamily: '"Whitney A", "Whitney B"',
+					fontStyle: 'italic',
+					fontWeight: '400',
+					color: '#898b8e',
+					fontSize: '14px',
+					lineHeight: '33px',
+					letterSpacing: '0.5px'
                 },
             },
             lineWidth: 0,
@@ -4624,18 +4746,20 @@ AAGlobal.CommoditiesScatterChartConfig.prototype, {
             align: 'left',
             width: parseInt(this.Width) - 70,
             style: {
-                color: '#000000',
-                fontSize: '14px',
-                fontFamily: "PT Sans",
-                fontWeight: 'normal',
+                color: '#2b2a2a',
+                fontSize: (isiPad || window.innerWidth < 1341)?'.9em':'14px',
+                fontFamily: '"Whitney A", "Whitney B"',
+                fontStyle: 'normal',
+				fontWeight: '400',
+				lineHeight: (isiPad || window.innerWidth < 1341)?'12px':'22px',
                 textTransform: 'none'
             },
             x: 0,
             floating: true,
             y: -110
         };
-        this.Width = '960';
-        this.Height = '800';
+        this.Width =  parseInt($('.container').width())-66;
+        //this.Height = '1198';
 
         this.CorrelationType = correlationType || 'HISTORICAL';
         this.Legend = {
@@ -4662,7 +4786,7 @@ AAGlobal.CommoditiesScatterChartConfig.prototype, {
                 align: 'left',
                 verticalAlign: 'bottom',
                 x: 20,
-                y: -55
+                y: -45
             },
             style: {
                 'width': parseInt(this.Width) - 20,
@@ -4682,43 +4806,43 @@ AAGlobal.CommoditiesScatterChartConfig.prototype, {
             dataClasses: [{
                 from: -1.0,
                 to: -0.8,
-                color: '#1C0113'
+                color: '#225b01'
             }, {
                 from: -0.8,
                 to: -0.6,
-                color: '#003300'
+                color: '#46791a'
             }, {
                 from: -0.6,
                 to: -0.4,
-                color: '#2A5C0B'
+                color: '#6a9833'
             }, {
                 from: -0.4,
                 to: -0.2,
-                color: '#006600'
+                color: '#8eb64b'
             }, {
                 from: -0.2,
                 to: 0,
-                color: '#808F12'
+                color: '#b2d464'
             }, {
                 from: 0,
                 to: 0.2,
-                color: '#99CC00'
+                color: '#b1ddf6'
             }, {
                 from: 0.2,
                 to: 0.4,
-                color: '#F8872E'
+                color: '#8ab1cc'
             }, {
                 from: 0.4,
                 to: 0.6,
-                color: '#EA2A15'
+                color: '#6385a2'
             }, {
                 from: 0.6,
                 to: 0.8,
-                color: '#C21A01'
+                color: '#3c5877'
             }, {
                 from: 0.8,
                 to: 1.0,
-                color: '#A30006'
+                color: '#152c4d'
             }]
         };
     };
@@ -4929,7 +5053,7 @@ AAGlobal.CommoditiesScatterChartConfig.prototype, {
                     .attr({
                         align: 'center'
                     }).css({
-                        'font-family': 'PT Sans',
+                        'font-family': '"Whitney A", "Whitney B"',
                         'font-size': '14px',
                         'fontWeight': 'normal',
                         'color': '#000000'
@@ -4987,7 +5111,7 @@ AAGlobal.CommoditiesScatterChartConfig.prototype, {
 
                         }).css({
                             'text-anchor': 'middle',
-                            'font-family': 'PT Sans',
+                            'font-family': '"Whitney A", "Whitney B"',
                             'font-size': '14px',
                             'fontWeight': 'normal'
                         })
@@ -4995,13 +5119,13 @@ AAGlobal.CommoditiesScatterChartConfig.prototype, {
 
                     }
        
-                    if ($.browser && $.browser.msie && $.browser.version < 9) {
+                    /*if ($.browser && $.browser.msie && $.browser.version < 9) {
                         window.setTimeout(function() {
                             $(volatilityTextObj.element).css({
                                 'left': (parseInt($(volatilityTextObj.element).css('left')) - volatilityTextObj.getBBox().width / 2) + 'px'
                             });
                         }, 100);
-                    }
+                    }*/
 
                 });
 
@@ -5014,8 +5138,8 @@ AAGlobal.CommoditiesScatterChartConfig.prototype, {
                 // drawing logo
                 chart.renderer.image(
                     chart.userOptions.credits.LogoUrl,
-                    chart.plotLeft + chart.plotWidth - 149,
-                    5,
+                    chart.plotLeft + 24,//chart.plotLeft + chart.plotWidth - 149,
+                    650,
                     144,
                     48
                 ).add();
@@ -5041,11 +5165,13 @@ AAGlobal.CommoditiesScatterChartConfig.prototype, {
             return {
                 chart: {
                     type: 'heatmap',
-                    spacingTop: 175,
+                    spacingTop: 180,
                     spacingLeft: 15,
-                    spacingBottom: 70,
+					marginRight: 33,
+                    spacingBottom: 120,
+					marginBottom: 382,
                     style: {
-                        fontFamily: 'PT Sans',
+                        'font-family': '"Whitney A", "Whitney B"',
                         'text-transform': 'uppercase'
                     },
                 },
@@ -5077,7 +5203,7 @@ AAGlobal.CommoditiesScatterChartConfig.prototype, {
                         style: {
                             fontWeight: 'bold',
                             fontSize: '14px',
-                            fontFamily: 'PT Sans',
+                            fontFamily: '"Whitney A", "Whitney B"',
                             color: '#FFFFFF'
                         },
                         format: '{point.TwoDecimalY}'
@@ -5147,10 +5273,12 @@ AAGlobal.CommoditiesScatterChartConfig.prototype, {
             text: 'Core Asset Class Correlation and Volatility',
             width: parseInt(this.Width) - 50,
             style: {
-                color: '#000000',
-                fontSize: '18px',
-                fontFamily: "PT Sans",
-                fontWeight: 'bold'
+                color: '#152c4d',
+                fontSize: (isiPad || window.innerWidth < 1341)?'1.4em':'34px',
+                fontFamily: '"Chronicle Display A", "Chronicle Display B"',
+                fontWeight: '600',
+                lineHeight: (isiPad || window.innerWidth < 1341)?'1.4em':'44px',
+                letterSpacing: '.2px'
             },
             align: 'left',
             y: -138,
@@ -5169,7 +5297,7 @@ AAGlobal.CommoditiesScatterChartConfig.prototype, {
                 style: {
                     color: '#000000',
                     fontSize: '10px',
-                    fontFamily: "PT Sans",
+                    fontFamily: '"Whitney A", "Whitney B"',
                     fontWeight: 'normal'
                 },
             },
@@ -5191,7 +5319,7 @@ AAGlobal.CommoditiesScatterChartConfig.prototype, {
                 style: {
                     color: '#333333',
                     fontSize: '10px',
-                    fontFamily: "PT Sans",
+                    fontFamily: '"Whitney A", "Whitney B"',
                     fontWeight: 'normal'
                 },
             },
@@ -5205,10 +5333,12 @@ AAGlobal.CommoditiesScatterChartConfig.prototype, {
             align: 'left',
             width: parseInt(this.Width) - 70,
             style: {
-                color: '#000000',
-                fontSize: '10px',
-                fontFamily: "PT Sans",
-                fontWeight: 'normal',
+                color: '#2b2a2a',
+                fontSize: (isiPad || window.innerWidth < 1341)?'.9em':'14px',
+                fontFamily: '"Whitney A", "Whitney B"',
+                fontStyle: 'normal',
+				fontWeight: '400',
+				lineHeight: (isiPad || window.innerWidth < 1341)?'12px':'22px',
                 textTransform: 'none'
             },
             x: 0,
@@ -5232,7 +5362,7 @@ AAGlobal.CommoditiesScatterChartConfig.prototype, {
             itemWidth: 20,
             verticalAlign: 'top',
             y: 0,
-            x: 250
+            x: 150
         };
 
         this.Credits = {
@@ -5264,43 +5394,43 @@ AAGlobal.CommoditiesScatterChartConfig.prototype, {
             dataClasses: [{
                 from: -1.0,
                 to: -0.8,
-                color: '#1C0113'
+                color: '#225b01'
             }, {
                 from: -0.8,
                 to: -0.6,
-                color: '#003300'
+                color: '#46791a'
             }, {
                 from: -0.6,
                 to: -0.4,
-                color: '#2A5C0B'
+                color: '#6a9833'
             }, {
                 from: -0.4,
                 to: -0.2,
-                color: '#006600'
+                color: '#8eb64b'
             }, {
                 from: -0.2,
                 to: 0,
-                color: '#808F12'
+                color: '#b2d464'
             }, {
                 from: 0,
                 to: 0.2,
-                color: '#99CC00'
+                color: '#b1ddf6'
             }, {
                 from: 0.2,
                 to: 0.4,
-                color: '#F8872E'
+                color: '#8ab1cc'
             }, {
                 from: 0.4,
                 to: 0.6,
-                color: '#EA2A15'
+                color: '#6385a2'
             }, {
                 from: 0.6,
                 to: 0.8,
-                color: '#C21A01'
+                color: '#3c5877'
             }, {
                 from: 0.8,
                 to: 1.0,
-                color: '#A30006'
+                color: '#152c4d'
             }]
         };
     };
@@ -5510,7 +5640,7 @@ AAGlobal.CommoditiesScatterChartConfig.prototype, {
                     .attr({
                         align: 'center'
                     }).css({
-                        'font-family': 'PT Sans',
+                        'font-family': '"Whitney A", "Whitney B"',
                         'font-size': '8px',
                         'fontWeight': 'normal',
                         'color': '#000000'
@@ -5566,7 +5696,7 @@ AAGlobal.CommoditiesScatterChartConfig.prototype, {
 
                         }).css({
                             'text-anchor': 'middle',
-                            'font-family': 'PT Sans',
+                            'font-family': '"Whitney A", "Whitney B"',
                             'font-size': '8px',
                             'fontWeight': 'normal'
                         })
@@ -5574,13 +5704,13 @@ AAGlobal.CommoditiesScatterChartConfig.prototype, {
 
                     }
        
-                    if ($.browser && $.browser.msie && $.browser.version < 9) {
+                    /*if ($.browser && $.browser.msie && $.browser.version < 9) {
                         window.setTimeout(function() {
                             $(volatilityTextObj.element).css({
                                 'left': (parseInt($(volatilityTextObj.element).css('left')) - volatilityTextObj.getBBox().width / 2) + 'px'
                             });
                         }, 100);
-                    }
+                    }*/
 
                 });
 
@@ -5593,8 +5723,8 @@ AAGlobal.CommoditiesScatterChartConfig.prototype, {
                 // drawing logo
                 chart.renderer.image(
                     chart.userOptions.credits.LogoUrl,
-                    chart.plotLeft + chart.plotWidth - 149,
-                    5,
+                    chart.plotLeft + 24,//chart.plotLeft + chart.plotWidth - 149,
+                    650,
                     144,
                     48
                 ).add();
@@ -5622,9 +5752,10 @@ AAGlobal.CommoditiesScatterChartConfig.prototype, {
                     type: 'heatmap',
                     spacingTop: 175,
                     spacingLeft: 15,
-                    spacingBottom: 70,
+					marginRight: 33,
+                    spacingBottom: 85,
                     style: {
-                        fontFamily: 'PT Sans',
+                        'font-family': '"Whitney A", "Whitney B"',
                         'text-transform': 'uppercase'
                     },
                 },
@@ -5656,7 +5787,7 @@ AAGlobal.CommoditiesScatterChartConfig.prototype, {
                         style: {
                             fontWeight: 'bold',
                             fontSize: '10px',
-                            fontFamily: 'PT Sans',
+                            fontFamily: '"Whitney A", "Whitney B"',
                             color: '#FFFFFF'
                         },
                         format: '{point.TwoDecimalY}'
@@ -5678,8 +5809,8 @@ AAGlobal.CommoditiesScatterChartConfig.prototype, {
 
     //#region Hero Table View Configuration
     AAGlobal.BaseTableChartConfig = function() {
-        this.Width = 970;
-        this.Height = 740;
+        this.Width =  $('#HeroContainer').width();
+        //this.Height = 740;
         this.BenchmarkColumn = 'IsBenchmarkPoint';
     }
     AAGlobal.BaseTableChartConfig.prototype = $.extend(true, {}, AAGlobal.BaseTableChartConfig.prototype, {
@@ -5693,9 +5824,9 @@ AAGlobal.CommoditiesScatterChartConfig.prototype, {
 
                 Vertical.prototype._resetLayout = function() {
                     this.y = 0;
-                    if ($.browser.msie && $.browser.version <= 9) {
+                    /*if ($.browser.msie && $.browser.version <= 9) {
                         this.y = 31;
-                    }
+                    }*/
                 };
 
                 Vertical.prototype._getItemLayoutPosition = function(item) {
@@ -5735,7 +5866,7 @@ AAGlobal.CommoditiesScatterChartConfig.prototype, {
             }
         },
         AddDisclosure: function(obj) {
-            var disclosureText = "<div class='logo'><img align='left' src='/_layouts/1033/STYLES/Themable/Images/AA/ra_blue_logo.png' /></div><div class='summary'>Source: Research Affiliates, LLC, <a href='http://www.rallc.com' target='blank'>©" +  GetConfigValue("CURRENT_YEAR") + " Research Affiliates, LLC. All Rights Reserved.</a></div>";
+            var disclosureText = "<div class='logo'><img align='left' src='/content/dam/ra/images/highcharts/AA/ra_blue_logo.png' /></div><div class='summary'>Source: Research Affiliates, LLC, <a href='http://www.rallc.com' target='blank'>©" +  GetConfigValue("CURRENT_YEAR") + " Research Affiliates, LLC. All Rights Reserved.</a></div>";
             var x = $(obj).parent().find(".disclosure");
             if (parseInt(x.length) > 0) {
                 $(x).empty().append(disclosureText);
@@ -5803,22 +5934,72 @@ AAGlobal.CommoditiesScatterChartConfig.prototype, {
     AAGlobal.EquitiesTableChartConfig.prototype = $.extend(true, {}, new AAGlobal.BaseTableChartConfig(), AAGlobal.EquitiesTableChartConfig.prototype, {
         GetTemplate: function() {
             //left align first column
-            var templateHtmlString = "<table class='isortope equitiesTableView'><thead class='fixedHeader'><th name='DisplayName' class='col4s left'>Name</th><th name='ExpectedReturn' class='col4s'>Expected Return</th><th name='Volatility' class='col5'>Volatility</th><th name='Yield' class='col5 hideinDevice'>Yield</th><th name='Growth' class='col5 hideinDevice'>Growth</th><th name='ValuationChange' class='col5 hideinDevice'>Valuation</th><th name='FxReturn' class='col5 hideinDevice'>FX</th></thead>";
+            var templateHtmlString = "<table class='isortope equitiesTableView'><thead class='fixedHeader'><th name='DisplayName' class='col4s left'>Name</th><th name='ExpectedReturn' class='col4s'>Expected Return</th><th name='Volatility' class='col5'>Volatility</th><th name='Yield' class='col5 hidden-sm hidden-xs'>Yield</th><th name='Growth' class='col5 hidden-sm hidden-xs'>Growth</th><th name='ValuationChange' class='col5 hidden-sm hidden-xs'>Valuation</th><th name='FxReturn' class='col5 hidden-sm hidden-xs'>FX</th></thead>";
             templateHtmlString += "<tbody class='scrollContent'>{{#items}}<tr data={{CssClass}}>";
             templateHtmlString += "<td name='DisplayName' class='col4s left'>{{DisplayName}}</td>";
             templateHtmlString += "{{#ExpectedReturn}}<td  name='ExpectedReturn' class='col4s digits'><span class='numbers'>{{ExpectedReturn}}%</span></td>{{/ExpectedReturn}}";
             templateHtmlString += "{{^ExpectedReturn}}<td  name='ExpectedReturn' class='col5 digits'>-</td>{{/ExpectedReturn}}";
             templateHtmlString += "{{#Volatility}}<td name='Volatility' class='col5 digits'><span class='numbers'>{{Volatility}}%</span></td>{{/Volatility}}";
             templateHtmlString += "{{^Volatility}}<td name='Volatility' class='col5 digits'>-</td>{{/Volatility}}";
-            templateHtmlString += "{{#Yield}}<td name='Yield' class='col5 digits hideinDevice'><span class='numbers'>{{Yield}}%</span></td>{{/Yield}}";
-            templateHtmlString += "{{^Yield}}<td name='Yield' class='col5 digits hideinDevice'>-</td>{{/Yield}}";
-            templateHtmlString += "{{#Growth}}<td name='Growth' class='col5 digits hideinDevice'><span class='numbers'>{{Growth}}%</span></td>{{/Growth}}";
-            templateHtmlString += "{{^Growth}}<td name='Growth' class='col5 digits hideinDevice'>-</td>{{/Growth}}";
-            templateHtmlString += "{{#ValuationChange}}<td name='ValuationChange' class='col5 digits hideinDevice'><span class='numbers'>{{ValuationChange}}%</span></td>{{/ValuationChange}}";
-            templateHtmlString += "{{^ValuationChange}}<td name='ValuationChange' class='col5 digits hideinDevice'>-</td>{{/ValuationChange}}";
-            templateHtmlString += "{{#FxReturn}}<td name='FxReturn' class='col5 digits hideinDevice'><span class='numbers'>{{FxReturn}}%</span></td>{{/FxReturn}}";
-            templateHtmlString += "{{^FxReturn}}<td name='FxReturn' class='col5 digits hideinDevice'>-</td>{{/FxReturn}}";
+            templateHtmlString += "{{#Yield}}<td name='Yield' class='col5 digits hidden-sm hidden-xs'><span class='numbers'>{{Yield}}%</span></td>{{/Yield}}";
+            templateHtmlString += "{{^Yield}}<td name='Yield' class='col5 digits hidden-sm hidden-xs'>-</td>{{/Yield}}";
+            templateHtmlString += "{{#Growth}}<td name='Growth' class='col5 digits hidden-sm hidden-xs'><span class='numbers'>{{Growth}}%</span></td>{{/Growth}}";
+            templateHtmlString += "{{^Growth}}<td name='Growth' class='col5 digits hidden-sm hidden-xs'>-</td>{{/Growth}}";
+            templateHtmlString += "{{#ValuationChange}}<td name='ValuationChange' class='col5 digits hidden-sm hidden-xs'><span class='numbers'>{{ValuationChange}}%</span></td>{{/ValuationChange}}";
+            templateHtmlString += "{{^ValuationChange}}<td name='ValuationChange' class='col5 digits hidden-sm hidden-xs'>-</td>{{/ValuationChange}}";
+            templateHtmlString += "{{#FxReturn}}<td name='FxReturn' class='col5 digits hidden-sm hidden-xs'><span class='numbers'>{{FxReturn}}%</span></td>{{/FxReturn}}";
+            templateHtmlString += "{{^FxReturn}}<td name='FxReturn' class='col5 digits hidden-sm hidden-xs'>-</td>{{/FxReturn}}";
             templateHtmlString += "</tr>{{/items}}</tbody></table>";
+            return templateHtmlString;
+        },
+        GetTemplateWithoutMustache:function(data){
+            var templateHtmlString = '<table class="isortope equitiesTableView"><thead class="fixedHeader"><th name="DisplayName" class="col4s left">Name</th><th name="ExpectedReturn" class="col4s">Expected Return</th><th name="Volatility" class="col5">Volatility</th><th name="Yield" class="col5 hidden-sm hidden-xs">Yield</th><th name="Growth" class="col5 hidden-sm hidden-xs">Growth</th><th name="ValuationChange" class="col5 hidden-sm hidden-xs">Valuation</th><th name="FxReturn" class="col5 hidden-sm hidden-xs">FX</th></thead>';
+            templateHtmlString += '<tbody class="scrollContent">';
+            
+            for(var i=0; i < data.items.length; ++i){
+                
+                var item = data.items[i];
+                templateHtmlString += '<tr data = "' + item.CssClass + '">';
+                templateHtmlString += '<td name="DisplayName" class="col4s left">' +item.DisplayName + '</td>';
+                if(item.ExpectedReturn !=undefined && item.ExpectedReturn!=null){
+                    templateHtmlString += '<td  name="ExpectedReturn" class="col4s digits"><span class="numbers">' + item.ExpectedReturn + '%</span></td>';
+                }
+                else{
+                    templateHtmlString += "<td  name='ExpectedReturn' class='col5 digits'>-</td>";
+                }
+                if(item.Volatility!=undefined && item.ExpectedReturn!=null){
+                    templateHtmlString += '<td name="Volatility" class="col5 digits"><span class="numbers">' + item.Volatility + '%</span></td>';
+                }
+                else{
+                    templateHtmlString += "<td  name='Volatility' class='col5 digits'>-</td>";
+                }
+                if(item.Yield !=undefined && item.Yield!=null){
+                    templateHtmlString += '<td name="Yield" class="col5 digits hidden-sm hidden-xs"><span class="numbers">' + item.Yield +'%</span></td>';
+                }
+                else{
+                    templateHtmlString += "<td  name='Yield' class='col5 digits hidden-sm hidden-xs'>-</td>";
+                }
+                if(item.Growth!=undefined && item.Growth!=null){
+                    templateHtmlString += "<td name='Growth' class='col5 digits hidden-sm hidden-xs'><span class='numbers'>" + item.Growth +"%</span></td>";
+                }
+                else{
+                    templateHtmlString += "<td  name='Growth' class='col5 digits hidden-sm hidden-xs'>-</td>";
+                }
+                if(item.ValuationChange!=undefined && item.ValuationChange!=null){
+                    templateHtmlString += "<td name='ValuationChange' class='col5 digits hidden-sm hidden-xs'><span class='numbers'>" + item.ValuationChange + "%</span></td>";
+                }
+                else{
+                    templateHtmlString += "<td  name='ValuationChange' class='col5 digits hidden-sm hidden-xs'>-</td>";
+                }
+                if(item.FxReturn !=undefined && item.FxReturn!=null){
+                    templateHtmlString += "<td name='FxReturn' class='col5 digits hidden-sm hidden-xs'><span class='numbers'>" + item.FxReturn + "%</span></td>";
+                }
+                else{
+                    templateHtmlString += "<td  name='FxReturn' class='col5 digits hidden-sm hidden-xs'>-</td>";
+                }
+                templateHtmlString += '</tr>';
+            }
+            templateHtmlString += "</tbody></table>";
             return templateHtmlString;
         },
         AddDisclosure: function(obj) {
@@ -5939,11 +6120,11 @@ AAGlobal.CommoditiesScatterChartConfig.prototype, {
                 "<th name='DisplayName' class='col4 left'>Name</th>" +
                 "<th name='ExpectedReturn' class='col5'>Expected Return</th>" +
                 "<th name='Volatility' class='col5'>Volatility</th>" +
-                "<th name='Yield' class='col5 hideinDevice'>Yield</th>" +
-                "<th name='CreditLoss' class='col5 hideinDevice'>Credit Loss</th>" +
-                "<th name='RollReturn' class='col5 hideinDevice'>Roll Return</th>" +
-                "<th name='ValuationChange' class='col5 hideinDevice'>Valuation</th>" +
-                "<th name='FxReturn' class='col5 hideinDevice'>FX</th>" +
+                "<th name='Yield' class='col5 hidden-sm hidden-xs'>Yield</th>" +
+                "<th name='CreditLoss' class='col5 hidden-sm hidden-xs'>Credit Loss</th>" +
+                "<th name='RollReturn' class='col5 hidden-sm hidden-xs'>Roll Return</th>" +
+                "<th name='ValuationChange' class='col5 hidden-sm hidden-xs'>Valuation</th>" +
+                "<th name='FxReturn' class='col5 hidden-sm hidden-xs'>FX</th>" +
                 "</thead>";
 
             templateHtmlString += "<tbody class='scrollContent'>{{#items}}<tr class={{CssClass}}>";
@@ -5955,22 +6136,85 @@ AAGlobal.CommoditiesScatterChartConfig.prototype, {
             templateHtmlString += "{{#Volatility}}<td name='Volatility' class='col5 digits'><span class='numbers'>{{Volatility}}%</span></td>{{/Volatility}}";
             templateHtmlString += "{{^Volatility}}<td name='Volatility' class='col5 digits'>-</td>{{/Volatility}}";
 
-            templateHtmlString += "{{#Yield}}<td name='Yield' class='col5 digits hideinDevice'><span class='numbers'>{{Yield}}%</span></td>{{/Yield}}";
-            templateHtmlString += "{{^Yield}}<td name='Yield' class='col5 digits hideinDevice'>-</td>{{/Yield}}";
+            templateHtmlString += "{{#Yield}}<td name='Yield' class='col5 digits hidden-sm hidden-xs'><span class='numbers'>{{Yield}}%</span></td>{{/Yield}}";
+            templateHtmlString += "{{^Yield}}<td name='Yield' class='col5 digits hidden-sm hidden-xs'>-</td>{{/Yield}}";
 
-            templateHtmlString += "{{#CreditLoss}}<td name='CreditLoss' class='col5 digits hideinDevice'><span class='numbers'>{{CreditLoss}}%</span></td>{{/CreditLoss}}";
-            templateHtmlString += "{{^CreditLoss}}<td name='CreditLoss' class='col5 digits hideinDevice'>-</td>{{/CreditLoss}}";
+            templateHtmlString += "{{#CreditLoss}}<td name='CreditLoss' class='col5 digits hidden-sm hidden-xs'><span class='numbers'>{{CreditLoss}}%</span></td>{{/CreditLoss}}";
+            templateHtmlString += "{{^CreditLoss}}<td name='CreditLoss' class='col5 digits hidden-sm hidden-xs'>-</td>{{/CreditLoss}}";
 
-            templateHtmlString += "{{#RollReturn}}<td name='RollReturn' class='col5 digits hideinDevice'><span class='numbers'>{{RollReturn}}%</span></td>{{/RollReturn}}";
-            templateHtmlString += "{{^RollReturn}}<td name='RollReturn' class='col5 digits hideinDevice'>-</td>{{/RollReturn}}";
+            templateHtmlString += "{{#RollReturn}}<td name='RollReturn' class='col5 digits hidden-sm hidden-xs'><span class='numbers'>{{RollReturn}}%</span></td>{{/RollReturn}}";
+            templateHtmlString += "{{^RollReturn}}<td name='RollReturn' class='col5 digits hidden-sm hidden-xs'>-</td>{{/RollReturn}}";
 
-            templateHtmlString += "{{#ValuationChange}}<td name='ValuationChange' class='col5 digits hideinDevice'><span class='numbers'>{{ValuationChange}}%</span></td>{{/ValuationChange}}";
-            templateHtmlString += "{{^ValuationChange}}<td name='ValuationChange' class='col5 digits hideinDevice'>-</td>{{/ValuationChange}}";
+            templateHtmlString += "{{#ValuationChange}}<td name='ValuationChange' class='col5 digits hidden-sm hidden-xs'><span class='numbers'>{{ValuationChange}}%</span></td>{{/ValuationChange}}";
+            templateHtmlString += "{{^ValuationChange}}<td name='ValuationChange' class='col5 digits hidden-sm hidden-xs'>-</td>{{/ValuationChange}}";
 
-            templateHtmlString += "{{#FxReturn}}<td name='FxReturn' class='col5 digits hideinDevice'><span class='numbers'>{{FxReturn}}%</span></td>{{/FxReturn}}";
-            templateHtmlString += "{{^FxReturn}}<td name='FxReturn' class='col5 digits hideinDevice'>-</td>{{/FxReturn}}";
+            templateHtmlString += "{{#FxReturn}}<td name='FxReturn' class='col5 digits hidden-sm hidden-xs'><span class='numbers'>{{FxReturn}}%</span></td>{{/FxReturn}}";
+            templateHtmlString += "{{^FxReturn}}<td name='FxReturn' class='col5 digits hidden-sm hidden-xs'>-</td>{{/FxReturn}}";
 
             templateHtmlString += "</tr>{{/items}}</tbody></table>";
+            return templateHtmlString;
+        },
+        GetTemplateWithoutMustache:function(data){
+            var templateHtmlString = "<table class='isortope'><thead class='fixedHeader'>" +
+                "<th name='DisplayName' class='col4 left'>Name</th>" +
+                "<th name='ExpectedReturn' class='col5'>Expected Return</th>" +
+                "<th name='Volatility' class='col5'>Volatility</th>" +
+                "<th name='Yield' class='col5 hidden-sm hidden-xs'>Yield</th>" +
+                "<th name='CreditLoss' class='col5 hidden-sm hidden-xs'>Credit Loss</th>" +
+                "<th name='RollReturn' class='col5 hidden-sm hidden-xs'>Roll Return</th>" +
+                "<th name='ValuationChange' class='col5 hidden-sm hidden-xs'>Valuation</th>" +
+                "<th name='FxReturn' class='col5 hidden-sm hidden-xs'>FX</th>" +
+                "</thead>";
+            templateHtmlString += "<tbody class='scrollContent'>";
+            for(var i=0; i < data.items.length; ++i){
+                var item = data.items[i];
+                templateHtmlString += "<tr data = '" + item.CssClass + "'>";
+                templateHtmlString += "<td name='DisplayName'' class='col4s left'>" +item.DisplayName + "</td>";
+                if(item.ExpectedReturn !=undefined && item.ExpectedReturn!=null){
+                    templateHtmlString += "<td  name='ExpectedReturn' class='col5 digits'><span class='numbers'>" + item.ExpectedReturn + "%</span></td>";
+                }
+                else{
+                    templateHtmlString +="<td  name='ExpectedReturn' class='col5 digits'>-</td>";
+                }
+                if(item.Volatility!=undefined && item.Volatility!=null){
+                    templateHtmlString += "<td name='Volatility' class='col5 digits'><span class='numbers'>" + item.Volatility + "%</span></td>";
+                }
+                else{
+                    templateHtmlString +="<td name='Volatility' class='col5 digits'>-</td>";
+                }
+                if(item.Yield !=undefined && item.Yield!=null){
+                    templateHtmlString += "<td name='Yield' class='col5 digits hidden-sm hidden-xs'><span class='numbers'>" + item.Yield + "%</span></td>";
+                }
+                else{
+                    templateHtmlString +="<td name='Yield' class='col5 digits hidden-sm hidden-xs'>-</td>";
+                }
+                if(item.CreditLoss!=undefined && item.CreditLoss!=null){
+                    templateHtmlString += "<td name='CreditLoss' class='col5 digits hidden-sm hidden-xs'><span class='numbers'>" + item.CreditLoss + "%</span></td>";
+                }
+                else{
+                    templateHtmlString +="<td name='CreditLoss' class='col5 digits hidden-sm hidden-xs'>-</td>";
+                }
+                if(item.RollReturn!=undefined && item.RollReturn!=null){
+                    templateHtmlString += "<td name='RollReturn' class='col5 digits hidden-sm hidden-xs'><span class='numbers'>" + item.RollReturn + "%</span></td>";
+                }
+                else{
+                    templateHtmlString +="<td name='RollReturn' class='col5 digits hidden-sm hidden-xs'>-</td>";
+                }
+                if(item.ValuationChange!=undefined && item.ValuationChange!=null){
+                    templateHtmlString += "<td name='ValuationChange' class='col5 digits hidden-sm hidden-xs'><span class='numbers'>" + item.ValuationChange + "%</span></td>";
+                }
+                else{
+                    templateHtmlString +="<td name='ValuationChange' class='col5 digits hidden-sm hidden-xs'>-</td>";
+                }
+                if(item.FxReturn!=undefined && item.FxReturn!=null){
+                    templateHtmlString += "<td name='FxReturn' class='col5 digits hidden-sm hidden-xs'><span class='numbers'>" + item.FxReturn + "%</span></td>";
+                }
+                else{
+                    templateHtmlString +="<td name='FxReturn' class='col5 digits hidden-sm hidden-xs'>-</td>";
+                }
+                templateHtmlString += '</tr>';
+            }
+             templateHtmlString += "</tbody></table>";
             return templateHtmlString;
         },
         AddDisclosure: function(obj) {
@@ -6098,6 +6342,30 @@ AAGlobal.CommoditiesScatterChartConfig.prototype, {
             templateHtmlString += "{{#Volatility}}<td name='Volatility' class='col5 digits'><span class='numbers'>{{Volatility}}%</span></td>{{/Volatility}}";
             templateHtmlString += "{{^Volatility}}<td name='Volatility' class='col5 digits'>-</td>{{/Volatility}}";
             templateHtmlString += "</tr>{{/items}}</tbody></table>";
+            return templateHtmlString;
+        },
+        GetTemplateWithoutMustache:function(data){
+            var templateHtmlString = "<table class='isortope coreOverview'><thead class='fixedHeader'><th name='ShortDisplayName' class='col4 left'>Name</th><th name='ExpectedReturn' class='col5'>Expected Return</th><th name='Volatility' class='col5'>Volatility</th></thead>";
+            templateHtmlString += "<tbody class='scrollContent'>";
+            for(var i=0; i < data.items.length; ++i){
+                var item = data.items[i];
+                templateHtmlString += "<tr data = '" + item.CssClass + "'>";
+                templateHtmlString += "<td name='ShortDisplayName'' class='col4 left'>" +item.ShortDisplayName + "</td>";
+                if(item.ExpectedReturn !=undefined && item.ExpectedReturn!=null){
+                    templateHtmlString += "<td  name='ExpectedReturn' class='col5 digits'><span class='numbers'>" + item.ExpectedReturn + "%</span></td>"
+                }
+                else{
+                    templateHtmlString += "<td  name='ExpectedReturn' class='col5 digits'>-</td>";
+                }
+                if(item.Volatility!=undefined && item.Volatility!=null){
+                    templateHtmlString += "<td name='Volatility' class='col5 digits'><span class='numbers'>" + item.Volatility + "%</span></td>";
+                }
+                else{
+                    templateHtmlString += "<td  name='Volatility' class='col5 digits'>-</td>";
+                }
+                templateHtmlString += '</tr>';
+            }
+             templateHtmlString += "</tbody></table>";
             return templateHtmlString;
         },
         AddDisclosure: function(obj) {
@@ -6239,10 +6507,10 @@ AAGlobal.CommoditiesScatterChartConfig.prototype, {
                 "<th name='ShortDisplayName' class='col4 left'>Name</th>" +
                 "<th name='ExpectedReturn' class='col5'>Expected Return</th>" +
                 "<th name='Volatility' class='col5'>Volatility</th>" +
-                "<th name='CollateralReturn' class='col5 hideinDevice'>Collateral</th>" +
-                "<th name='RollReturn' class='col5 hideinDevice'>Roll Return</th>" +
-                "<th name='RebalanceReturn' class='col5 hideinDevice'>Rebalance</th>" +
-                "<th name='ValuationChange' class='col5 hideinDevice'>Valuation</th>" +
+                "<th name='CollateralReturn' class='col5 hidden-sm hidden-xs'>Collateral</th>" +
+                "<th name='RollReturn' class='col5 hidden-sm hidden-xs'>Roll Return</th>" +
+                "<th name='RebalanceReturn' class='col5 hidden-sm hidden-xs'>Rebalance</th>" +
+                "<th name='ValuationChange' class='col5 hidden-sm hidden-xs'>Valuation</th>" +
                 "</thead>";
 
             templateHtmlString += "<tbody class='scrollContent'>{{#items}}<tr class={{CssClass}}>";
@@ -6254,19 +6522,75 @@ AAGlobal.CommoditiesScatterChartConfig.prototype, {
             templateHtmlString += "{{#Volatility}}<td name='Volatility' class='col5 digits'><span class='numbers'>{{Volatility}}%</span></td>{{/Volatility}}";
             templateHtmlString += "{{^Volatility}}<td name='Volatility' class='col5 digits'>-</td>{{/Volatility}}";
 
-            templateHtmlString += "{{#CollateralReturn}}<td name='CollateralReturn' class='col5 digits hideinDevice'><span class='numbers'>{{CollateralReturn}}%</span></td>{{/CollateralReturn}}";
-            templateHtmlString += "{{^CollateralReturn}}<td name='CollateralReturn' class='col5 digits hideinDevice'>-</td>{{/CollateralReturn}}";
+            templateHtmlString += "{{#CollateralReturn}}<td name='CollateralReturn' class='col5 digits hidden-sm hidden-xs'><span class='numbers'>{{CollateralReturn}}%</span></td>{{/CollateralReturn}}";
+            templateHtmlString += "{{^CollateralReturn}}<td name='CollateralReturn' class='col5 digits hidden-sm hidden-xs'>-</td>{{/CollateralReturn}}";
 
-            templateHtmlString += "{{#RollReturn}}<td name='RollReturn' class='col5 digits hideinDevice'><span class='numbers'>{{RollReturn}}%</span></td>{{/RollReturn}}";
-            templateHtmlString += "{{^RollReturn}}<td name='RollReturn' class='col5 digits hideinDevice'>-</td>{{/RollReturn}}";
+            templateHtmlString += "{{#RollReturn}}<td name='RollReturn' class='col5 digits hidden-sm hidden-xs'><span class='numbers'>{{RollReturn}}%</span></td>{{/RollReturn}}";
+            templateHtmlString += "{{^RollReturn}}<td name='RollReturn' class='col5 digits hidden-sm hidden-xs'>-</td>{{/RollReturn}}";
 
-            templateHtmlString += "{{#RebalanceReturn}}<td name='RebalanceReturn' class='col5 digits hideinDevice'><span class='numbers'>{{RebalanceReturn}}%</span></td>{{/RebalanceReturn}}";
-            templateHtmlString += "{{^RebalanceReturn}}<td name='RebalanceReturn' class='col5 digits hideinDevice'>-</td>{{/RebalanceReturn}}";
+            templateHtmlString += "{{#RebalanceReturn}}<td name='RebalanceReturn' class='col5 digits hidden-sm hidden-xs'><span class='numbers'>{{RebalanceReturn}}%</span></td>{{/RebalanceReturn}}";
+            templateHtmlString += "{{^RebalanceReturn}}<td name='RebalanceReturn' class='col5 digits hidden-sm hidden-xs'>-</td>{{/RebalanceReturn}}";
 
-            templateHtmlString += "{{#ValuationChange}}<td name='ValuationChange' class='col5 digits hideinDevice'><span class='numbers'>{{ValuationChange}}%</span></td>{{/ValuationChange}}";
-            templateHtmlString += "{{^ValuationChange}}<td name='ValuationChange' class='col5 digits hideinDevice'>-</td>{{/ValuationChange}}";
+            templateHtmlString += "{{#ValuationChange}}<td name='ValuationChange' class='col5 digits hidden-sm hidden-xs'><span class='numbers'>{{ValuationChange}}%</span></td>{{/ValuationChange}}";
+            templateHtmlString += "{{^ValuationChange}}<td name='ValuationChange' class='col5 digits hidden-sm hidden-xs'>-</td>{{/ValuationChange}}";
 
             templateHtmlString += "</tr>{{/items}}</tbody></table>";
+            return templateHtmlString;
+        },
+        GetTemplateWithoutMustache:function(data){
+            var templateHtmlString = "<table class='isortope'><thead class='fixedHeader'>" +
+                "<th name='ShortDisplayName' class='col4 left'>Name</th>" +
+                "<th name='ExpectedReturn' class='col5'>Expected Return</th>" +
+                "<th name='Volatility' class='col5'>Volatility</th>" +
+                "<th name='CollateralReturn' class='col5 hidden-sm hidden-xs'>Collateral</th>" +
+                "<th name='RollReturn' class='col5 hidden-sm hidden-xs'>Roll Return</th>" +
+                "<th name='RebalanceReturn' class='col5 hidden-sm hidden-xs'>Rebalance</th>" +
+                "<th name='ValuationChange' class='col5 hidden-sm hidden-xs'>Valuation</th>" +
+                "</thead>";
+            templateHtmlString += "<tbody class='scrollContent'>";
+            for(var i=0; i < data.items.length; ++i){
+                var item = data.items[i];
+                templateHtmlString += "<tr class = '" + item.CssClass + "'>";
+                templateHtmlString += "<td name='DisplayName'' class='col5 left'>" +item.DisplayName + "</td>";
+                if(item.ExpectedReturn !=undefined && item.ExpectedReturn!=null){
+                    templateHtmlString += "<td  name='ExpectedReturn' class='col5 digits'><span class='numbers'>" + item.ExpectedReturn + "%</span></td>";
+                }
+                else{
+                    templateHtmlString += "<td  name='ExpectedReturn' class='col5 digits'>-</td>";
+                }
+                if(item.Volatility!=undefined && item.Volatility!=null){
+                    templateHtmlString += "<td name='Volatility' class='col5 digits'><span class='numbers'>" + item.Volatility + "%</span></td>";
+                }
+                else{
+                    templateHtmlString += "<td  name='Volatility' class='col5 digits'>-</td>";
+                }
+                if(item.CollateralReturn !=undefined && item.CollateralReturn!=null){
+                    templateHtmlString += "<td name='Yield' class='col5 digits hidden-sm hidden-xs'><span class='numbers'>" + item.CollateralReturn + "%</span></td>";
+                }
+                else{
+                    templateHtmlString += "<td  name='Yield' class='col5 digits hidden-sm hidden-xs'>-</td>";
+                }
+                if(item.RollReturn!=undefined && item.RollReturn!=null){
+                    templateHtmlString += "<td name='RollReturn' class='col5 digits hidden-sm hidden-xs'><span class='numbers'>" + item.RollReturn + "%</span></td>";
+                }
+                else{
+                    templateHtmlString += "<td  name='RollReturn' class='col5 digits hidden-sm hidden-xs'>-</td>";
+                }
+                if(item.RebalanceReturn!=undefined && item.RebalanceReturn!=null){
+                    templateHtmlString += "<td name='RollReturn' class='col5 digits hidden-sm hidden-xs'><span class='numbers'>" + item.RebalanceReturn + "%</span></td>";
+                }
+                else{
+                    templateHtmlString += "<td  name='RollReturn' class='col5 digits hidden-sm hidden-xs'>-</td>";
+                }
+                if(item.ValuationChange!=undefined && item.ValuationChange!=null){
+                    templateHtmlString += "<td name='ValuationChange' class='col5 digits hidden-sm hidden-xs'><span class='numbers'>" + item.ValuationChange + "%</span></td>";
+                }
+                else{
+                    templateHtmlString += "<td  name='ValuationChange' class='col5 digits hidden-sm hidden-xs'>-</td>";
+                }
+                templateHtmlString += '</tr>';
+            }
+             templateHtmlString += "</tbody></table>";
             return templateHtmlString;
         },
         AddDisclosure: function(obj) {
@@ -6386,8 +6710,8 @@ AAGlobal.CommoditiesScatterChartConfig.prototype, {
                 "<th name='ShortDisplayName' class='col4 left'>Name</th>" +
                 "<th name='ExpectedReturn' class='col5'>Expected Return</th>" +
                 "<th name='Yield' class='col5'>Cash Rate</th>" +
-                "<th name='FxReturn' class='col5 hideinDevice'>FX</th>" +
-                 "<th name='Volatility' class='col5 hideinDevice'>Volatility</th>" +
+                "<th name='FxReturn' class='col5 hidden-sm hidden-xs'>FX</th>" +
+                 "<th name='Volatility' class='col5 hidden-sm hidden-xs'>Volatility</th>" +
                 "</thead>";
 
             templateHtmlString += "<tbody class='scrollContent'>{{#items}}<tr data={{CssClass}}>";
@@ -6399,11 +6723,54 @@ AAGlobal.CommoditiesScatterChartConfig.prototype, {
             templateHtmlString += "{{#Yield}}<td  name='Yield' class='col5 digits'><span class='numbers last-child'>{{Yield}}%</span></td>{{/Yield}}";
             templateHtmlString += "{{^Yield}}<td  name='Yield' class='col5 digits'>-</td>{{/Yield}}";
 
-            templateHtmlString += "{{#FxReturn}}<td  name='FxReturn' class='col5 digits hideinDevice'><span class='numbers last-child'>{{FxReturn}}%</span></td>{{/FxReturn}}";
-            templateHtmlString += "{{^FxReturn}}<td  name='FxReturn' class='col5 digits hideinDevice'>-</td>{{/FxReturn}}";
-            templateHtmlString += "{{#Volatility}}<td name='Volatility' class='col5 digits hideinDevice'><span class='numbers'>{{Volatility}}%</span></td>{{/Volatility}}";
-            templateHtmlString += "{{^Volatility}}<td name='Volatility' class='col5 digits hideinDevice'>-</td>{{/Volatility}}";
+            templateHtmlString += "{{#FxReturn}}<td  name='FxReturn' class='col5 digits hidden-sm hidden-xs'><span class='numbers last-child'>{{FxReturn}}%</span></td>{{/FxReturn}}";
+            templateHtmlString += "{{^FxReturn}}<td  name='FxReturn' class='col5 digits hidden-sm hidden-xs'>-</td>{{/FxReturn}}";
+            templateHtmlString += "{{#Volatility}}<td name='Volatility' class='col5 digits hidden-sm hidden-xs'><span class='numbers'>{{Volatility}}%</span></td>{{/Volatility}}";
+            templateHtmlString += "{{^Volatility}}<td name='Volatility' class='col5 digits hidden-sm hidden-xs'>-</td>{{/Volatility}}";
             templateHtmlString += "</tr>{{/items}}</tbody></table>";
+            return templateHtmlString;
+        },
+        GetTemplateWithoutMustache:function(data){
+            var templateHtmlString = "<table class='isortope'><thead class='fixedHeader'>" +
+                "<th name='ShortDisplayName' class='col4 left'>Name</th>" +
+                "<th name='ExpectedReturn' class='col5'>Expected Return</th>" +
+                "<th name='Yield' class='col5'>Cash Rate</th>" +
+                "<th name='FxReturn' class='col5 hidden-sm hidden-xs'>FX</th>" +
+                 "<th name='Volatility' class='col5 hidden-sm hidden-xs'>Volatility</th>" +
+                "</thead>";
+            templateHtmlString += "<tbody class='scrollContent'>";
+            for(var i=0; i < data.items.length; ++i){
+                var item = data.items[i];
+                templateHtmlString += "<tr data = '" + item.CssClass + "'>";
+                templateHtmlString += "<td name='ShortDisplayName'' class='col5 left'>" +item.ShortDisplayName + "</td>";
+                if(item.ExpectedReturn !=undefined && item.ExpectedReturn!=null){
+                    templateHtmlString += "<td  name='ExpectedReturn' class='col5 digits'><span class='numbers'>" + item.ExpectedReturn + "%</span></td>";
+                }
+                else{
+                    templateHtmlString += "<td  name='ExpectedReturn' class='col5 digits'>-</td>";
+                }
+                if(item.Yield !=undefined && item.Yield!=null){
+                    templateHtmlString += "<td name='Yield' class='col5 digits hidden-sm hidden-xs'><span class='numbers'>" + item.Yield + "%</span></td>";
+                }
+                else{
+                    templateHtmlString += "<td  name='Yield' class='col5 digits'>-</td>";
+                }
+                if(item.FxReturn!=undefined && item.FxReturn!=null){
+                    templateHtmlString += "<td  name='FxReturn' class='col5 digits hidden-sm hidden-xs'><span class='numbers last-child'>" + item.FxReturn + "%</span></td>";
+                }
+                else{
+                    templateHtmlString += "<td  name='FxReturn' class='col5 digits hidden-sm hidden-xs'>-</td>";
+                }
+                if(item.Volatility!=undefined && item.Volatility!=null){
+                    templateHtmlString += "<td name='Volatility' class='col5 digits'><span class='numbers'>" + item.Volatility + "%</span></td>";
+                }
+                else{
+                    templateHtmlString += "<td  name='Volatility' class='col5 digits hidden-sm hidden-xs'>-</td>";
+                }
+
+                templateHtmlString += '</tr>';
+            }
+             templateHtmlString += "</tbody></table>";
             return templateHtmlString;
         },
         AddDisclosure: function(obj) {
@@ -6469,7 +6836,7 @@ AAGlobal.CommoditiesScatterChartConfig.prototype, {
         this.DOM = currentDOM;
         this.Data = data;
         this.Width = '800';
-        this.Height = '550';
+        this.Height = '576';
         this.YField = 'DataValue';
         this.XField = 'Tenor',
             this.DefaultTooltipSelector = options.defaultTooltipSelector || '.forecasted-item-details';
@@ -6544,11 +6911,15 @@ AAGlobal.CommoditiesScatterChartConfig.prototype, {
             lineColor: '#7f7f7f',
             minRange: 2,
             labels: {
-                format: '{value} %',
+                format: '{value}%',
                 style: {
-                    fontSize: '14px',
-                    fontFamily: 'Arial',
-                    color: '#707070'
+                    fontFamily: '"Whitney A", "Whitney B"',
+					fontStyle: 'italic',
+					fontWeight: '400',
+					color: '#898b8e',
+					fontSize: '14px',
+					lineHeight: '33px',
+					letterSpacing: '.5px'
                 }
             }
 
@@ -6575,13 +6946,13 @@ AAGlobal.CommoditiesScatterChartConfig.prototype, {
                 }
                 var offsetTop = $(this.chart.container).offset().top - $('#innerContainer').offset().top;
 
-                if ($.browser && $.browser.msie && $.browser.version < 9) {
+                /*if ($.browser && $.browser.msie && $.browser.version < 9) {
                     offsetTop = 0;
-                }
+                }*/
 
                 return {
                     x: this.chart.plotLeft - 5,
-                    y: offsetTop
+                    y: -4
                 };
             },
             backgroundColor: 'none',
@@ -6633,20 +7004,20 @@ AAGlobal.CommoditiesScatterChartConfig.prototype, {
                 'text-anchor': 'end'
             }).css({
                 color: '#989898',
-                fontFamily: "PT Sans",
+                fontFamily: '"Whitney A", "Whitney B"',
                 fontSize: '40px',
                 lineHeight: '40px',
                 fontWeight: 'normal'
             }).add();
 
-            if ($.browser && $.browser.msie && $.browser.version < 9) {
+            /*if ($.browser && $.browser.msie && $.browser.version < 9) {
                 window.setTimeout(function() {
                     $(titleElement.element).css({
                         'left': (parseInt($(titleElement.element).css('left')) - titleElement.getBBox().width) + 'px',
                         'text-align': 'right'
                     });
                 }, 100);
-            }
+            }*/
         },
 
         GetCategories: function() {
@@ -6838,8 +7209,8 @@ AAGlobal.CommoditiesScatterChartConfig.prototype, {
 
         this.DOM = currentDOM;
         this.Data = data;
-        this.Width = '800';
-        this.Height = '550';
+        this.Width = parseInt($('.container').width())-66;
+        this.Height = '576';
         this.YField = 'DataValue';
         this.XField = 'DataDate';
         this.ForecastedTooltipSelector = options.forecastedTooltipSelector || '.forecasted-item-details';
@@ -6904,11 +7275,15 @@ AAGlobal.CommoditiesScatterChartConfig.prototype, {
             maxPadding: 0,
             minPadding: 0,
             labels: {
-                format: '{value} %',
+                format: '{value}%',
                 style: {
-                    fontSize: '14px',
-                    fontFamily: 'Arial',
-                    color: '#707070'
+                    fontFamily: '"Whitney A", "Whitney B"',
+					fontStyle: 'italic',
+					fontWeight: '400',
+					color: '#898b8e',
+					fontSize: '14px',
+					lineHeight: '33px',
+					letterSpacing: '.5px'
                 }
             }
 
@@ -6924,7 +7299,7 @@ AAGlobal.CommoditiesScatterChartConfig.prototype, {
             align: 'right',
             style: {
                 color: '#989898',
-                fontFamily: "PT Sans",
+                fontFamily: '"Whitney A", "Whitney B"',
                 fontSize: '40px',
                 fontWeight: 'normal'
             },
@@ -6948,15 +7323,15 @@ AAGlobal.CommoditiesScatterChartConfig.prototype, {
                 if (point.plotX - labelWidth > 0) {
                     xPos = point.plotX - labelWidth + 40;
                 }
-                var offsetTop = 16; // $(this.chart.container).offset().top - $($(this.chart.container).parents('td')[0]).offset().top;
-                var offsetLeft = $(this.chart.container).offset().left - $($(this.chart.container).parents('td')[0]).offset().left;
-                if ($.browser && $.browser.msie && $.browser.version < 9) {
+                //var offsetTop = 16; // $(this.chart.container).offset().top - $($(this.chart.container).parents('td')[0]).offset().top;
+                //var offsetLeft = $(this.chart.container).offset().left - $($(this.chart.container).parents('td')[0]).offset().left;
+                /*if ($.browser && $.browser.msie && $.browser.version < 9) {
                     offsetTop = 15;
                     offsetLeft = 0;
-                }
+                }*/
                 return {
-                    x: offsetLeft + this.chart.plotLeft - 5,
-                    y: offsetTop - 15
+                    x: this.chart.plotLeft - 5,
+                    y: -4
                 };
             },
             backgroundColor: 'none',
@@ -7063,14 +7438,14 @@ AAGlobal.CommoditiesScatterChartConfig.prototype, {
                 lineHeight: '14px'
             }).add();
 
-            if ($.browser && $.browser.msie && $.browser.version < 9) {
+            /*if ($.browser && $.browser.msie && $.browser.version < 9) {
                 window.setTimeout(function() {
                     $(forecastTextElement.element).css({
                         'left': (parseInt($(forecastTextElement.element).css('left')) - forecastTextElement.getBBox().width / 2) + 'px',
                         'text-align': 'center'
                     });
                 }, 100);
-            }
+            }*/
         },
 
         GetSplineSeriesData: function(category, series) {
@@ -7184,12 +7559,12 @@ AAGlobal.CommoditiesScatterChartConfig.prototype, {
                 pointData.x = pointData[RiskVolatilityChart.XField];
                 if (pointData.x && typeof pointData.x == 'string') {
 
-                    if (($.browser.msie && $.browser.version < 9) || ($.browser.safari)) {
+                    /*if ($.browser.safari) {($.browser.msie && $.browser.version < 9) || 
                         var dateString = pointData.x.split("T");
                         pointData.x = $.datepicker.parseDate('yy-mm-dd', dateString[0]);
-                    } else {
+                    } else {*/
                         pointData.x = new Date(pointData.x);
-                    }
+                    /*}*/
 
                     if (isForecasted) {
                         pointData.x = pointData.x.setMonth(pointData.x.getMonth() + 2);
@@ -7247,7 +7622,7 @@ AAGlobal.CommoditiesScatterChartConfig.prototype, {
         this.DOM = currentDOM;
         this.Data = data;
         this.Width = '800';
-        this.Height = '550';
+        this.Height = '576';
         this.YField = 'DataValue';
         this.XField = 'DataDate';
         this.ForecastedTooltipSelector = options.forecastedTooltipSelector;
@@ -7318,11 +7693,15 @@ AAGlobal.CommoditiesScatterChartConfig.prototype, {
             maxPadding: 0,
             minPadding: 0,
             labels: {
-                format: '{value} %',
+                format: '{value}%',
                 style: {
-                    fontSize: '14px',
-                    fontFamily: 'Arial',
-                    color: '#707070'
+                    fontFamily: '"Whitney A", "Whitney B"',
+					fontStyle: 'italic',
+					fontWeight: '400',
+					color: '#898b8e',
+					fontSize: '14px',
+					lineHeight: '33px',
+					letterSpacing: '.5px'
                 }
             }
 
@@ -7334,11 +7713,11 @@ AAGlobal.CommoditiesScatterChartConfig.prototype, {
         };
 
         this.Title = {
-            text: 'ROLLING 10-YR RETURN',
+            text: 'HISTORICAL REAL PRICE (USD)',
             align: 'right',
             style: {
                 color: '#989898',
-                fontFamily: "PT Sans",
+                fontFamily: '"Whitney A", "Whitney B"',
                 fontSize: '40px',
                 fontWeight: 'normal'
             },
@@ -7364,13 +7743,13 @@ AAGlobal.CommoditiesScatterChartConfig.prototype, {
                 }
                 var offsetTop = $(this.chart.container).offset().top - $('#innerContainer').offset().top;
 
-                if ($.browser && $.browser.msie && $.browser.version < 9) {
+                /*if ($.browser && $.browser.msie && $.browser.version < 9) {
                     offsetTop = 0;
-                }
+                }*/
 
                 return {
                     x: this.chart.plotLeft - 5,
-                    y: offsetTop
+                    y: -4
                 };
             },
             backgroundColor: 'none',
@@ -7469,14 +7848,14 @@ AAGlobal.CommoditiesScatterChartConfig.prototype, {
                 color: '#707070',
                 lineHeight: '14px'
             }).add();
-            if ($.browser && $.browser.msie && $.browser.version < 9) {
+            /*if ($.browser && $.browser.msie && $.browser.version < 9) {
                 window.setTimeout(function() {
                     $(forecastTextElement.element).css({
                         'left': (parseInt($(forecastTextElement.element).css('left')) - forecastTextElement.getBBox().width / 2) + 'px',
                         'text-align': 'center'
                     });
                 }, 100);
-            }
+            }*/
         },
 
         GetSplineSeriesData: function(category, series) {
@@ -7590,12 +7969,12 @@ AAGlobal.CommoditiesScatterChartConfig.prototype, {
                 pointData.x = pointData[CurrenciesCountriesChart.XField];
                 if (pointData.x && typeof pointData.x == 'string') {
 
-                    if (($.browser.msie && $.browser.version < 9) || ($.browser.safari)) {
+                    /*if ($.browser.safari) {($.browser.msie && $.browser.version < 9) ||
                         var dateString = pointData.x.split("T");
                         pointData.x = $.datepicker.parseDate('yy-mm-dd', dateString[0]);
-                    } else {
+                    } else {*/
                         pointData.x = new Date(pointData.x);
-                    }
+                    /*}*/
                     if (isForecasted) {
                         pointData.x = pointData.x.setMonth(pointData.x.getMonth() + 2);
                     }
@@ -7651,11 +8030,11 @@ AAGlobal.CommoditiesScatterChartConfig.prototype, {
         this.DOM = currentDOM;
         this.Data = data;
         this.Width = '800';
-        this.Height = '550';
+        this.Height = '576';
         this.YField = 'DataValue';
         this.XField = 'DataDate';
         this.suffixUnit = options.suffixUnit;
-		this.logBase1 = options.logBase;
+		this.logBase = options.logBase;
         this.ForecastedTooltipSelector = options.forecastedTooltipSelector;
         this.Forecasted = options.Forecasted;
         CurrenciesCountriesChart.CategoryCodes = options.categories;
@@ -7722,13 +8101,17 @@ AAGlobal.CommoditiesScatterChartConfig.prototype, {
             startOnTick: true,
             maxPadding: 0,
             minPadding: 0,
-			tickInterval: (logBase)? 1:null,
+			tickInterval: (this.logBase)? 1:null,
             labels: {
                 format: '{value} ' + this.suffixUnit,
                 style: {
-                    fontSize: '14px',
-                    fontFamily: 'Arial',
-                    color: '#707070'
+                    fontFamily: '"Whitney A", "Whitney B"',
+					fontStyle: 'italic',
+					fontWeight: '400',
+					color: '#898b8e',
+					fontSize: '14px',
+					lineHeight: '33px',
+					letterSpacing: '.5px'
                 }						
             }
 
@@ -7744,7 +8127,7 @@ AAGlobal.CommoditiesScatterChartConfig.prototype, {
             align: 'right',
             style: {
                 color: '#989898',
-                fontFamily: "PT Sans",
+                fontFamily: '"Whitney A", "Whitney B"',
                 fontSize: '40px',
                 fontWeight: 'normal'
             },
@@ -7769,12 +8152,16 @@ AAGlobal.CommoditiesScatterChartConfig.prototype, {
                     xPos = point.plotX - labelWidth + 40;
                 }
                 var offsetTop = $(this.chart.container).offset().top - $('#innerContainer').offset().top;
-                if ($.browser && $.browser.msie && $.browser.version < 9) {
+                /*if ($.browser && $.browser.msie && $.browser.version < 9) {
                     offsetTop = 0;
-                }
-                return {
+                }*/
+                /*return {
                     x: this.chart.plotLeft - 5,
                     y: offsetTop
+                };*/
+                return {
+                    x: this.chart.plotLeft - 5,
+                    y: -4
                 };
             },
             backgroundColor: 'none',
@@ -7876,14 +8263,14 @@ AAGlobal.CommoditiesScatterChartConfig.prototype, {
                 color: '#707070',
                 lineHeight: '14px'
             }).add();
-            if ($.browser && $.browser.msie && $.browser.version < 9) {
+            /*if ($.browser && $.browser.msie && $.browser.version < 9) {
                 window.setTimeout(function() {
                     $(forecastTextElement.element).css({
                         'left': (parseInt($(forecastTextElement.element).css('left')) - forecastTextElement.getBBox().width / 2) + 'px',
                         'text-align': 'center'
                     });
                 }, 100);
-            }
+            }*/
         },
 
 
@@ -7893,7 +8280,8 @@ AAGlobal.CommoditiesScatterChartConfig.prototype, {
                 lineWidth: 1,
                 color: category.Color,
                 marker: {
-                    enabled: false
+                    enabled: false,
+                    radius: 5
                 },
                 states: {
                     hover: {
@@ -7985,7 +8373,7 @@ AAGlobal.CommoditiesScatterChartConfig.prototype, {
                     });
                 }
             });
-            $(this.ForecastedTooltipSelector).html(AAGlobal.ComparisionTooltipFormatter(this.Categories, '', 'DataValue', 'CommodityCode', forecastedPoints, this.suffixUnit,logBase));
+            $(this.ForecastedTooltipSelector).html(AAGlobal.ComparisionTooltipFormatter(this.Categories, '', 'DataValue', 'CommodityCode', forecastedPoints, this.suffixUnit,this.logBase));
 
         },
 
@@ -7999,12 +8387,12 @@ AAGlobal.CommoditiesScatterChartConfig.prototype, {
                 pointData.x = pointData[CurrenciesCountriesChart.XField];
                 if (pointData.x && typeof pointData.x == 'string') {
 
-                    if (($.browser.msie && $.browser.version < 9) || ($.browser.safari)) {
+                    /*if ($.browser.safari) {($.browser.msie && $.browser.version < 9) || 
                         var dateString = pointData.x.split("T");
                         pointData.x = $.datepicker.parseDate('yy-mm-dd', dateString[0]);
-                    } else {
+                    } else {*/
                         pointData.x = new Date(pointData.x);
-                    }
+                    /*}*/
                     if (isForecasted) {
                         pointData.x = pointData.x.setMonth(pointData.x.getMonth() + 2);
                     }
@@ -8161,7 +8549,7 @@ AAGlobal.CommoditiesScatterChartConfig.prototype, {
             templateHtmlString += "<td class='col3 hideinDevice' name='AnnualizedNominalReturn3Y'>{{#AnnualizedNominalReturn3Y}}{{AnnualizedNominalReturn3Y}}%{{/AnnualizedNominalReturn3Y}}{{^AnnualizedNominalReturn3Y}}-{{/AnnualizedNominalReturn3Y}}</td>";
             templateHtmlString += "<td class='col3 hideinDevice' name='AnnualizedNominalReturn5Y'>{{#AnnualizedNominalReturn5Y}}{{AnnualizedNominalReturn5Y}}%{{/AnnualizedNominalReturn5Y}}{{^AnnualizedNominalReturn5Y}}-{{/AnnualizedNominalReturn5Y}}</td>";
             templateHtmlString += "<td class='col3 hideinDevice' name='AnnualizedNominalReturn10Y'>{{#AnnualizedNominalReturn10Y}}{{AnnualizedNominalReturn10Y}}%{{/AnnualizedNominalReturn10Y}}{{^AnnualizedNominalReturn10Y}}-{{/AnnualizedNominalReturn10Y}}</td>";
-            templateHtmlString += "<td class='col3' name='AnnualizedNominalReturn10YRank'><div class='rank'>{{#IsPositiveAnnualizedNominalReturn10YRank}}<div class='meter-green-text'>{{#AnnualizedNominalReturn10YRank}}{{AnnualizedNominalReturn10YRank}}%{{/AnnualizedNominalReturn10YRank}}</div><div class='meter-green'><span style='width: {{ModAnnualizedNominalReturn10YRank}}%'></span></div>{{/IsPositiveAnnualizedNominalReturn10YRank}}{{^IsPositiveAnnualizedNominalReturn10YRank}}<div class='meter-red red'><span style='width: {{ModAnnualizedNominalReturn10YRank}}%'></span></div><div class='meter-red-text'>{{#AnnualizedNominalReturn10YRank}}{{AnnualizedNominalReturn10YRank}}%{{/AnnualizedNominalReturn10YRank}}{{/IsPositiveAnnualizedNominalReturn10YRank}}</div></div></td>";
+            templateHtmlString += "<td class='col3' name='AnnualizedNominalReturn10YRank'><div class='rank'>{{#IsPositiveAnnualizedNominalReturn10YRank}}<div class='meter-green-text'>{{#AnnualizedNominalReturn10YRank}}{{AnnualizedNominalReturn10YRank}}%{{/AnnualizedNominalReturn10YRank}}</div><div class='meter-green'><span style='width: {{ModAnnualizedNominalReturn10YRank}}%></span></div>{{/IsPositiveAnnualizedNominalReturn10YRank}}{{^IsPositiveAnnualizedNominalReturn10YRank}}<div class='meter-red red'><span style='width: {{ModAnnualizedNominalReturn10YRank}}%'></span></div><div class='meter-red-text'>{{#AnnualizedNominalReturn10YRank}}{{AnnualizedNominalReturn10YRank}}%{{/AnnualizedNominalReturn10YRank}}{{/IsPositiveAnnualizedNominalReturn10YRank}}</div></div></td>";
             templateHtmlString += "<td class='col3 hideinDevice' name='ExpectedReturn'>{{#ExpectedReturn}}{{ExpectedReturn}}%{{/ExpectedReturn}}{{^ExpectedReturn}}-{{/ExpectedReturn}}</td>";
             templateHtmlString += "<td class='col3' name='ExpectedReturnRank'><div class='rank'>{{#IsPositiveExpectedReturnRank}}<div class='meter-green-text'>{{#ExpectedReturnRank}}{{ExpectedReturnRank}}%{{/ExpectedReturnRank}}</div><div class='meter-green'><span style='width: {{ModExpectedReturnRank}}%'></span></div>{{/IsPositiveExpectedReturnRank}}{{^IsPositiveExpectedReturnRank}}<div class='meter-red red'><span style='width: {{ModExpectedReturnRank}}%'></span></div><div class='meter-red-text'>{{#ExpectedReturnRank}}{{ExpectedReturnRank}}%{{/ExpectedReturnRank}}{{/IsPositiveExpectedReturnRank}}</div></div></td>";
             templateHtmlString += "<td class='col3 hideinDevice' name='Growth10K'>{{FormattedGrowth10K}}</td>";
@@ -8171,6 +8559,101 @@ AAGlobal.CommoditiesScatterChartConfig.prototype, {
             templateHtmlString += "</tbody>";
             templateHtmlString += "</table>";
             return templateHtmlString;
+        },
+        GetTemplateWithoutMustache:function(asOfDate,data){
+			
+			var historicalHeader = 'Historical Real Total Return<!-- <span class="tableHeaderDate">(as of ' + asOfDate + ')</span>-->';
+			var forecastHeader = 'Forecast Real Return<!-- <span class="tableHeaderDate">(as of ' + GetDataDate() + ')</span>-->';
+			var templateHtmlString = "<table id='sortableTable' class='tablesorter' width='100%' ><thead><tr><td colspan='2' class='datatableCaptionempty hidden-sm hidden-xs'></td><td colspan='6' class='datatableCaption hidden-sm hidden-xs'>"+historicalHeader+"</td><td colspan='2' class='datatableCaption'>"+forecastHeader+"</td></tr>";
+            templateHtmlString += "<tr>";
+            templateHtmlString += '<th scope="col"  style="display:none;"  name="GroupName">GroupName</th>';
+            templateHtmlString += '<th scope="col"  name="DisplayName">Commodity Name<span class="sort-arrow"></span></th>';
+			 templateHtmlString += '<th scope="col" class="hidden-sm hidden-xs" name="AnnualizedNominalReturnYTD" style="text-align:center;">YTD<span class="sort-arrow"></span></th>';
+            templateHtmlString += '<th scope="col" class="hidden-sm hidden-xs" name="AnnualizedNominalReturn1Y" style="width: 45px;text-align:center;">1-Year<span class="sort-arrow"></span></th>';
+            templateHtmlString += '<th scope="col" class="hidden-sm hidden-xs" name="AnnualizedNominalReturn3Y" style="text-align:center;">3-Year</br>Annualized<span class="sort-arrow"></span></th>';
+            templateHtmlString += '<th scope="col" class="hidden-sm hidden-xs" name="AnnualizedNominalReturn5Y" style="text-align:center;">5-Year</br>Annualized<span class="sort-arrow"></span></th>';
+            templateHtmlString += '<th scope="col" class="hidden-sm hidden-xs" name="AnnualizedNominalReturn10Y" style="text-align:center;">10-Year</br>Annualized<span class="sort-arrow"></span></th>';
+            templateHtmlString += '<th scope="col" name="AnnualizedNominalReturn10YRank" style="text-align:center;"><div class="hideinDesktop">Historical </div>10-Year</br>Relative Rank<span class="sort-arrow"></span></th>';
+            templateHtmlString += '<th scope="col" class="hidden-sm hidden-xs" name="ExpectedReturn" style="text-align:center;">10-Year</br>Annualized<span class="sort-arrow"></span></th>';
+            templateHtmlString += '<th scope="col" name="ExpectedReturnRank" style="text-align:center;"><div class="hideinDesktop">Forecasted </div>10-Year</br>Relative Rank<span class="sort-arrow"></span></th>';
+            //templateHtmlString += '<th scope="col" class="hidden-sm hidden-xs" name="Growth10K" style="text-align:center;">Growth</br>of $10K<span class="sort-arrow"></span></th>';
+            templateHtmlString += "</tr></thead><tbody>";
+            
+            for(var i=0; i < data.items.length; ++i){
+			    templateHtmlString += "<tr>";
+                templateHtmlString += "<td style='display:none;' name='GroupName'>"+data.items[i].GroupName+"</td>"
+				templateHtmlString += "<td class='col1 legend' name='DisplayName'>"+data.items[i].DisplayName +"</td>";
+               if(data.items[i].AnnualizedNominalReturnYTD !=undefined && data.items[i].AnnualizedNominalReturnYTD!=null){
+                    templateHtmlString += "<td class='col3 altGry hidden-sm hidden-xs' name='AnnualizedNominalReturnYTD'>" + data.items[i].AnnualizedNominalReturnYTD + "%</td>";
+                }
+                else{
+                    templateHtmlString += "<td class='col3 altGry hidden-sm hidden-xs' name='AnnualizedNominalReturnYTD'>-</td>";
+                }
+				
+				if(data.items[i].AnnualizedNominalReturn1Y !=undefined && data.items[i].AnnualizedNominalReturn1Y!=null){
+                    templateHtmlString += "<td class='col3 altGry hidden-sm hidden-xs' name='AnnualizedNominalReturn1Y'>" + data.items[i].AnnualizedNominalReturn1Y + "%</td>";
+                }
+                else{
+                    templateHtmlString += "<td class='col3 altGry hidden-sm hidden-xs' name='AnnualizedNominalReturn1Y'>-</td>";
+                }
+				
+				if(data.items[i].AnnualizedNominalReturn3Y !=undefined && data.items[i].AnnualizedNominalReturn3Y!=null){
+                    templateHtmlString += "<td class='col3 hidden-sm hidden-xs' name='AnnualizedNominalReturn3Y'>" + data.items[i].AnnualizedNominalReturn3Y + "%</td>";
+                }
+                else{
+                    templateHtmlString += "<td class='col3 altGry hidden-sm hidden-xs' name='AnnualizedNominalReturn3Y'>-</td>";
+                }
+				if(data.items[i].AnnualizedNominalReturn5Y !=undefined && data.items[i].AnnualizedNominalReturn5Y!=null){
+                    templateHtmlString += "<td class='col3 hidden-sm hidden-xs' name='AnnualizedNominalReturn5Y'>" + data.items[i].AnnualizedNominalReturn5Y + "%</td>";
+                }
+                else{
+                    templateHtmlString += "<td class='col3 altGry hidden-sm hidden-xs' name='AnnualizedNominalReturn5Y'>-</td>";
+                }
+				if(data.items[i].AnnualizedNominalReturn10Y !=undefined && data.items[i].AnnualizedNominalReturn10Y!=null){
+                    templateHtmlString += "<td class='col3 hidden-sm hidden-xs' name='AnnualizedNominalReturn10Y'>" + data.items[i].AnnualizedNominalReturn10Y + "%</td>";
+                }
+                else{
+                    templateHtmlString += "<td class='col3 altGry hidden-sm hidden-xs' name='AnnualizedNominalReturn10Y'>-</td>";
+                }
+				if(data.items[i].AnnualizedNominalReturn10YRank !=undefined && data.items[i].AnnualizedNominalReturn10YRank!=null)
+				{
+				templateHtmlString +="<td class='col3' name='AnnualizedNominalReturn10YRank'>"+data.items[i].AnnualizedNominalReturn10YRank+"</td>"
+				}
+				else{
+				templateHtmlString +="<td class='col3' name='AnnualizedNominalReturn10YRank'>"+data.items[i].AnnualizedNominalReturn10YRank+"</td>";
+				}
+				if(data.items[i].ExpectedReturn !=undefined && data.items[i].ExpectedReturn!=null){
+                    templateHtmlString += "<td class='col3 hidden-sm hidden-xs' name='ExpectedReturn'>" + data.items[i].ExpectedReturn + "%</td>";
+                }
+                else{
+                    templateHtmlString += "<td class='col3 altGry hidden-sm hidden-xs' name='ExpectedReturn'>-</td>";
+                }
+				
+				if(data.items[i].ExpectedReturnRank != undefined && data.items[i].ExpectedReturnRank != null)
+				{
+					templateHtmlString +="<td class='col3' name='ExpectedReturnRank'>"+data.items[i].ExpectedReturnRank+"<div class='rank'>"
+					
+					if(data.items[i].RankChange>0){
+						templateHtmlString +="<div class='meter-green'></div>"
+					}
+					else{
+						templateHtmlString +="<div class='meter-red red'></div>"
+					}
+					templateHtmlString +="</div>"
+				}
+				else{
+					templateHtmlString +="<td class='col3' name='ExpectedReturnRank'>-</td>"
+				}
+				
+			  
+           
+			//templateHtmlString += "<td class='col3 hidden-sm hidden-xs' name='Growth10K'>"+data.items[i].FormattedGrowth10K+"</td>";
+            
+            templateHtmlString += "</tr>";
+            }
+            templateHtmlString += "</tbody></table>";
+            return templateHtmlString;
+           
         },
     
 
@@ -8229,6 +8712,104 @@ AAGlobal.CommoditiesScatterChartConfig.prototype, {
             templateHtmlString += "</table>";
             return templateHtmlString;
         },
+		GetTemplateWithoutMustache:function(asOfDate,data){
+		var historicalHeader = 'Historical Real Total Return USD<!-- <span class="tableHeaderDate">(as of ' + asOfDate + ')</span>-->';
+        var forecastHeader = 'Forecast Real Return USD<!-- <span class="tableHeaderDate">(as of ' + GetDataDate() + ')</span>-->';
+            var templateHtmlString = "<table id='sortableTable' class='tablesorter' width='100%' >";
+            templateHtmlString += '<thead><tr><td colspan="2" class="datatableCaptionempty hidden-sm hidden-xs"></td><td colspan="6" class="datatableCaption hidden-sm hidden-xs">'+historicalHeader+'</td><td colspan="2" class="datatableCaption">'+forecastHeader+'</td></tr>';
+            templateHtmlString += "<tr>";
+            templateHtmlString += '<th scope="col"  name="MarketCategory">MarketCategory</th>';
+            templateHtmlString += '<th scope="col"  name="ShortDisplayName">Country Name<span class="sort-arrow"></span></th>';
+            //templateHtmlString += '<th scope="col" class="hidden-sm hidden-xs" name="Yield" style="text-align:center;">Yield<span class="sort-arrow"></span></th>';
+            templateHtmlString += '<th scope="col" class="hidden-sm hidden-xs" name="AnnualizedNominalReturnYTD" style="text-align:center;">YTD<span class="sort-arrow"></span></th>';
+            templateHtmlString += '<th scope="col" class="hidden-sm hidden-xs" name="AnnualizedNominalReturn1Y" style="width: 45px;text-align:center;">1-Year<span class="sort-arrow"></span></th>';
+            templateHtmlString += '<th scope="col" class="hidden-sm hidden-xs" name="AnnualizedNominalReturn3Y" style="text-align:center;">3-Year</br>Annualized<span class="sort-arrow"></span></th>';
+            templateHtmlString += '<th scope="col" class="hidden-sm hidden-xs" name="AnnualizedNominalReturn5Y" style="text-align:center;">5-Year</br>Annualized<span class="sort-arrow"></span></th>';
+            templateHtmlString += '<th scope="col" class="hidden-sm hidden-xs" name="AnnualizedNominalReturn10Y" style="text-align:center;">10-Year</br>Annualized<span class="sort-arrow"></span></th>';
+            templateHtmlString += '<th scope="col" name="AnnualizedNominalReturn10YRank" style="text-align:center;"><div class="hideinDesktop">Historical </div>10-Year</br>Relative Rank<span class="sort-arrow"></span></th>';
+            templateHtmlString += '<th scope="col" class="hidden-sm hidden-xs" name="ExpectedReturn" style="text-align:center;">10-Year</br>Annualized<span class="sort-arrow"></span></th>';
+            templateHtmlString += '<th scope="col" name="ExpectedReturnRank" style="text-align:center;"><div class="hideinDesktop">Forecasted </div>10-Year</br>Relative Rank<span class="sort-arrow"></span></th>';
+            //templateHtmlString += '<th scope="col" class="hidden-sm hidden-xs" name="Growth10K" style="text-align:center;">Growth</br>of $10K<span class="sort-arrow"></span></th>';
+            templateHtmlString += "</tr></thead><tbody>";
+            
+            for(var i=0; i < data.items.length; ++i){
+			
+                templateHtmlString += "<tr>";
+				templateHtmlString += "<td style='display:none;' name='MarketCategory'>"+data.items[i].MarketCategory+"</td>";
+                templateHtmlString += "<td class='col1 legend' name='ShortDisplayName'>"+data.items[i].DisplayName+"</td>";
+ 
+               if(data.items[i].AnnualizedNominalReturnYTD !=undefined && data.items[i].AnnualizedNominalReturnYTD!=null){
+                    templateHtmlString += "<td class='col3 altGry hidden-sm hidden-xs' name='AnnualizedNominalReturnYTD'>" + data.items[i].AnnualizedNominalReturnYTD + "%</td>";
+                }
+                else{
+                    templateHtmlString += "<td class='col3 altGry hidden-sm hidden-xs' name='AnnualizedNominalReturnYTD'>-</td>";
+                }
+				
+				if(data.items[i].AnnualizedNominalReturn1Y !=undefined && data.items[i].AnnualizedNominalReturn1Y!=null){
+                    templateHtmlString += "<td class='col3 altGry hidden-sm hidden-xs' name='AnnualizedNominalReturn1Y'>" + data.items[i].AnnualizedNominalReturn1Y + "%</td>";
+                }
+                else{
+                    templateHtmlString += "<td class='col3 altGry hidden-sm hidden-xs' name='AnnualizedNominalReturn1Y'>-</td>";
+                }
+				
+				if(data.items[i].AnnualizedNominalReturn3Y !=undefined && data.items[i].AnnualizedNominalReturn3Y!=null){
+                    templateHtmlString += "<td class='col3 hidden-sm hidden-xs' name='AnnualizedNominalReturn3Y'>" + data.items[i].AnnualizedNominalReturn3Y + "%</td>";
+                }
+                else{
+                    templateHtmlString += "<td class='col3 altGry hidden-sm hidden-xs' name='AnnualizedNominalReturn3Y'>-</td>";
+                }
+				if(data.items[i].AnnualizedNominalReturn5Y !=undefined && data.items[i].AnnualizedNominalReturn5Y!=null){
+                    templateHtmlString += "<td class='col3 hidden-sm hidden-xs' name='AnnualizedNominalReturn5Y'>" + data.items[i].AnnualizedNominalReturn5Y + "%</td>";
+                }
+                else{
+                    templateHtmlString += "<td class='col3 altGry hidden-sm hidden-xs' name='AnnualizedNominalReturn5Y'>-</td>";
+                }
+				if(data.items[i].AnnualizedNominalReturn10Y !=undefined && data.items[i].AnnualizedNominalReturn10Y!=null){
+                    templateHtmlString += "<td class='col3 hidden-sm hidden-xs' name='AnnualizedNominalReturn10Y'>" + data.items[i].AnnualizedNominalReturn10Y + "%</td>";
+                }
+                else{
+                    templateHtmlString += "<td class='col3 altGry hidden-sm hidden-xs' name='AnnualizedNominalReturn10Y'>-</td>";
+                }
+				if(data.items[i].AnnualizedNominalReturn10YRank !=undefined && data.items[i].AnnualizedNominalReturn10YRank!=null)
+				{
+				templateHtmlString +="<td class='col3' name='AnnualizedNominalReturn10YRank'>"+data.items[i].AnnualizedNominalReturn10YRank+"</td>"
+				}
+				else{
+				templateHtmlString +="<td class='col3' name='AnnualizedNominalReturn10YRank'>"+data.items[i].AnnualizedNominalReturn10YRank+"</td>";
+				}
+				if(data.items[i].ExpectedReturn !=undefined && data.items[i].ExpectedReturn!=null){
+                    templateHtmlString += "<td class='col3 hidden-sm hidden-xs' name='ExpectedReturn'>" + data.items[i].ExpectedReturn + "%</td>";
+                }
+                else{
+                    templateHtmlString += "<td class='col3 altGry hidden-sm hidden-xs' name='ExpectedReturn'>-</td>";
+                }
+				
+				if(data.items[i].ExpectedReturnRank != undefined && data.items[i].ExpectedReturnRank != null)
+				{
+					templateHtmlString +="<td class='col3' name='ExpectedReturnRank'>"+data.items[i].ExpectedReturnRank+"<div class='rank'>"
+					
+					if(data.items[i].RankChange>0){
+						templateHtmlString +="<div class='meter-green'></div>"
+					}
+					else{
+						templateHtmlString +="<div class='meter-red red'></div>"
+					}
+					templateHtmlString +="</div>"
+				}
+				else{
+					templateHtmlString +="<td class='col3' name='ExpectedReturnRank'>-</td>"
+				}
+				
+			  
+           
+			//templateHtmlString += "<td class='col3 hidden-sm hidden-xs' name='Growth10K'>"+data.items[i].FormattedGrowth10K+"</td>";
+            
+            templateHtmlString += "</tr>";
+            }
+            templateHtmlString += "</tbody></table>";
+            return templateHtmlString;
+           
+        }, 
     
 
         InitializeAndSortColumn: function(thObject) {
@@ -8291,6 +8872,106 @@ AAGlobal.CommoditiesScatterChartConfig.prototype, {
             return templateHtmlString;
         },
 		
+		GetTemplateWithoutMustache:function(asOfDate,data){
+		var historicalHeader = 'Historical Real Total Return<!-- <span class="tableHeaderDate">(as of ' + asOfDate + ')</span>-->';
+        var forecastHeader = 'Forecast Real Return<!-- <span class="tableHeaderDate">(as of ' + GetDataDate() + ')</span>-->';
+            var templateHtmlString = "<table id='sortableTable' class='tablesorter' width='100%' >";
+            templateHtmlString += '<thead><tr><td colspan="2" class="datatableCaptionempty hidden-sm hidden-xs"></td><td colspan="6" class="datatableCaption hidden-sm hidden-xs">'+historicalHeader+'</td><td colspan="2" class="datatableCaption">'+forecastHeader+'</td></tr>';
+            templateHtmlString += "<tr>";
+            templateHtmlString += '<th scope="col" style="display:none;" name="DisplayOrder">DisplayOrder</th>';
+			templateHtmlString += '<th scope="col"  name="MarketCategory">MarketCategory</th>';
+            templateHtmlString += '<th scope="col"  name="DisplayName">Index Name<span class="sort-arrow"></span></th>';
+            //templateHtmlString += '<th scope="col" class="hidden-sm hidden-xs" name="Yield" style="text-align:center;">Yield<span class="sort-arrow"></span></th>';
+            templateHtmlString += '<th scope="col" class="hidden-sm hidden-xs" name="AnnualizedNominalReturnYTD" style="text-align:center;">YTD<span class="sort-arrow"></span></th>';
+            templateHtmlString += '<th scope="col" class="hidden-sm hidden-xs" name="AnnualizedNominalReturn1Y" style="width: 45px;text-align:center;">1-Year<span class="sort-arrow"></span></th>';
+            templateHtmlString += '<th scope="col" class="hidden-sm hidden-xs" name="AnnualizedNominalReturn3Y" style="text-align:center;">3-Year</br>Annualized<span class="sort-arrow"></span></th>';
+            templateHtmlString += '<th scope="col" class="hidden-sm hidden-xs" name="AnnualizedNominalReturn5Y" style="text-align:center;">5-Year</br>Annualized<span class="sort-arrow"></span></th>';
+            templateHtmlString += '<th scope="col" class="hidden-sm hidden-xs" name="AnnualizedNominalReturn10Y" style="text-align:center;">10-Year</br>Annualized<span class="sort-arrow"></span></th>';
+            templateHtmlString += '<th scope="col" name="AnnualizedNominalReturn10YRank" style="text-align:center;"><div class="hideinDesktop">Historical </div>10-Year</br>Relative Rank<span class="sort-arrow"></span></th>';
+            templateHtmlString += '<th scope="col" class="hidden-sm hidden-xs" name="ExpectedReturn" style="text-align:center;">10-Year</br>Annualized<span class="sort-arrow"></span></th>';
+            templateHtmlString += '<th scope="col" name="ExpectedReturnRank" style="text-align:center;"><div class="hideinDesktop">Forecasted </div>10-Year</br>Relative Rank<span class="sort-arrow"></span></th>';
+            //templateHtmlString += '<th scope="col" class="hidden-sm hidden-xs" name="Growth10K" style="text-align:center;">Growth</br>of $10K<span class="sort-arrow"></span></th>';
+            templateHtmlString += "</tr></thead><tbody>";
+            
+            for(var i=0; i < data.items.length; ++i){
+			
+                templateHtmlString += "<tr>";
+				templateHtmlString += "<td style='display:none;' name='DisplayOrder'>"+data.items[i].DisplayOrder+"</td>";
+				templateHtmlString += "<td style='display:none;' name='MarketCategory'>"+data.items[i].MarketCategory+"</td>";
+                templateHtmlString += "<td class='col1 legend' name='ShortDisplayName'>"+data.items[i].DisplayName+"</td>";
+ 
+               if(data.items[i].AnnualizedNominalReturnYTD !=undefined && data.items[i].AnnualizedNominalReturnYTD!=null){
+                    templateHtmlString += "<td class='col3 altGry hidden-sm hidden-xs' name='AnnualizedNominalReturnYTD'>" + data.items[i].AnnualizedNominalReturnYTD + "%</td>";
+                }
+                else{
+                    templateHtmlString += "<td class='col3 altGry hidden-sm hidden-xs' name='AnnualizedNominalReturnYTD'>-</td>";
+                }
+				
+				if(data.items[i].AnnualizedNominalReturn1Y !=undefined && data.items[i].AnnualizedNominalReturn1Y!=null){
+                    templateHtmlString += "<td class='col3 altGry hidden-sm hidden-xs' name='AnnualizedNominalReturn1Y'>" + data.items[i].AnnualizedNominalReturn1Y + "%</td>";
+                }
+                else{
+                    templateHtmlString += "<td class='col3 altGry hidden-sm hidden-xs' name='AnnualizedNominalReturn1Y'>-</td>";
+                }
+				
+				if(data.items[i].AnnualizedNominalReturn3Y !=undefined && data.items[i].AnnualizedNominalReturn3Y!=null){
+                    templateHtmlString += "<td class='col3 hidden-sm hidden-xs' name='AnnualizedNominalReturn3Y'>" + data.items[i].AnnualizedNominalReturn3Y + "%</td>";
+                }
+                else{
+                    templateHtmlString += "<td class='col3 altGry hidden-sm hidden-xs' name='AnnualizedNominalReturn3Y'>-</td>";
+                }
+				if(data.items[i].AnnualizedNominalReturn5Y !=undefined && data.items[i].AnnualizedNominalReturn5Y!=null){
+                    templateHtmlString += "<td class='col3 hidden-sm hidden-xs' name='AnnualizedNominalReturn5Y'>" + data.items[i].AnnualizedNominalReturn5Y + "%</td>";
+                }
+                else{
+                    templateHtmlString += "<td class='col3 altGry hidden-sm hidden-xs' name='AnnualizedNominalReturn5Y'>-</td>";
+                }
+				if(data.items[i].AnnualizedNominalReturn10Y !=undefined && data.items[i].AnnualizedNominalReturn10Y!=null){
+                    templateHtmlString += "<td class='col3 hidden-sm hidden-xs' name='AnnualizedNominalReturn10Y'>" + data.items[i].AnnualizedNominalReturn10Y + "%</td>";
+                }
+                else{
+                    templateHtmlString += "<td class='col3 altGry hidden-sm hidden-xs' name='AnnualizedNominalReturn10Y'>-</td>";
+                }
+				if(data.items[i].AnnualizedNominalReturn10YRank !=undefined && data.items[i].AnnualizedNominalReturn10YRank!=null)
+				{
+				templateHtmlString +="<td class='col3' name='AnnualizedNominalReturn10YRank'>"+data.items[i].AnnualizedNominalReturn10YRank+"</td>"
+				}
+				else{
+				templateHtmlString +="<td class='col3' name='AnnualizedNominalReturn10YRank'>"+data.items[i].AnnualizedNominalReturn10YRank+"</td>";
+				}
+				if(data.items[i].ExpectedReturn !=undefined && data.items[i].ExpectedReturn!=null){
+                    templateHtmlString += "<td class='col3 hidden-sm hidden-xs' name='ExpectedReturn'>" + data.items[i].ExpectedReturn + "%</td>";
+                }
+                else{
+                    templateHtmlString += "<td class='col3 altGry hidden-sm hidden-xs' name='ExpectedReturn'>-</td>";
+                }
+				
+				if(data.items[i].ExpectedReturnRank != undefined && data.items[i].ExpectedReturnRank != null)
+				{
+					templateHtmlString +="<td class='col3' name='ExpectedReturnRank'>"+data.items[i].ExpectedReturnRank+"<div class='rank'>"
+					
+					if(data.items[i].RankChange>0){
+						templateHtmlString +="<div class='meter-green'></div>"
+					}
+					else{
+						templateHtmlString +="<div class='meter-red red'></div>"
+					}
+					templateHtmlString +="</div>"
+				}
+				else{
+					templateHtmlString +="<td class='col3' name='ExpectedReturnRank'>-</td>"
+				}
+				
+			  
+           
+			//templateHtmlString += "<td class='col3 hidden-sm hidden-xs' name='Growth10K'>"+data.items[i].FormattedGrowth10K+"</td>";
+            
+            templateHtmlString += "</tr>";
+            }
+            templateHtmlString += "</tbody></table>";
+            return templateHtmlString;
+           
+        }, 
 		CustomSortOrder: function (data) {
 
             $.Enumerable.From(data).ForEach(function (record) {
@@ -8359,6 +9040,105 @@ AAGlobal.CommoditiesScatterChartConfig.prototype, {
             templateHtmlString += "</table>";
             return templateHtmlString;
         },
+		GetTemplateWithoutMustache:function(asOfDate,data){
+			var historicalHeader = 'Historical Real Total Return<!-- <span class="tableHeaderDate">(as of ' + asOfDate + ')</span>-->';
+        var forecastHeader = 'Forecast Real Return<!-- <span class="tableHeaderDate">(as of ' + GetDataDate() + ')</span>-->';
+           var templateHtmlString = "<table id='sortableTable' class='tablesorter' width='100%' >";
+            templateHtmlString += '<thead><tr><td colspan="2" class="datatableCaptionempty hidden-sm hidden-xs"></td><td colspan="6" class="datatableCaption hidden-sm hidden-xs">'+historicalHeader+'</td><td colspan="2" class="datatableCaption">'+forecastHeader+'</td></tr>';
+            templateHtmlString += "<tr>";
+            templateHtmlString += '<th scope="col"  name="MarketCategory">MarketCategory</th>';
+            templateHtmlString += '<th scope="col"  name="DisplayName">Index Name<span class="sort-arrow"></span></th>';
+            //templateHtmlString += '<th scope="col" class="hidden-sm hidden-xs" name="Yield" style="text-align:center;">Yield<span class="sort-arrow"></span></th>';
+            templateHtmlString += '<th scope="col" class="hidden-sm hidden-xs" name="AnnualizedNominalReturnYTD" style="text-align:center;">YTD<span class="sort-arrow"></span></th>';
+            templateHtmlString += '<th scope="col" class="hidden-sm hidden-xs" name="AnnualizedNominalReturn1Y" style="width: 45px;text-align:center;">1-Year<span class="sort-arrow"></span></th>';
+            templateHtmlString += '<th scope="col" class="hidden-sm hidden-xs" name="AnnualizedNominalReturn3Y" style="text-align:center;">3-Year</br>Annualized<span class="sort-arrow"></span></th>';
+            templateHtmlString += '<th scope="col" class="hidden-sm hidden-xs" name="AnnualizedNominalReturn5Y" style="text-align:center;">5-Year</br>Annualized<span class="sort-arrow"></span></th>';
+            templateHtmlString += '<th scope="col" class="hidden-sm hidden-xs" name="AnnualizedNominalReturn10Y" style="text-align:center;">10-Year</br>Annualized<span class="sort-arrow"></span></th>';
+            templateHtmlString += '<th scope="col" name="AnnualizedNominalReturn10YRank" style="text-align:center;"><div class="hideinDesktop">Historical </div>10-Year</br>Relative Rank<span class="sort-arrow"></span></th>';
+            templateHtmlString += '<th scope="col" class="hidden-sm hidden-xs" name="ExpectedReturn" style="text-align:center;">10-Year</br>Annualized<span class="sort-arrow"></span></th>';
+            templateHtmlString += '<th scope="col" name="ExpectedReturnRank" style="text-align:center;"><div class="hideinDesktop">Forecasted </div>10-Year</br>Relative Rank<span class="sort-arrow"></span></th>';
+            //templateHtmlString += '<th scope="col" class="hidden-sm hidden-xs" name="Growth10K" style="text-align:center;">Growth</br>of $10K<span class="sort-arrow"></span></th>';
+            templateHtmlString += "</tr></thead><tbody>";
+            
+            for(var i=0; i < data.items.length; ++i){
+			
+                templateHtmlString += "<tr>";
+				templateHtmlString += "<td style='display:none;' name='MarketCategory'>"+data.items[i].MarketCategory+"</td>";
+                templateHtmlString += "<td class='col1 legend' name='DisplayName'>"+data.items[i].DisplayName+"</td>";
+ 
+               if(data.items[i].AnnualizedNominalReturnYTD !=undefined && data.items[i].AnnualizedNominalReturnYTD!=null){
+                    templateHtmlString += "<td class='col3 altGry hidden-sm hidden-xs' name='AnnualizedNominalReturnYTD'>" + data.items[i].AnnualizedNominalReturnYTD + "%</td>";
+                }
+                else{
+                    templateHtmlString += "<td class='col3 altGry hidden-sm hidden-xs' name='AnnualizedNominalReturnYTD'>-</td>";
+                }
+				
+				if(data.items[i].AnnualizedNominalReturn1Y !=undefined && data.items[i].AnnualizedNominalReturn1Y!=null){
+                    templateHtmlString += "<td class='col3 altGry hidden-sm hidden-xs' name='AnnualizedNominalReturn1Y'>" + data.items[i].AnnualizedNominalReturn1Y + "%</td>";
+                }
+                else{
+                    templateHtmlString += "<td class='col3 altGry hidden-sm hidden-xs' name='AnnualizedNominalReturn1Y'>-</td>";
+                }
+				
+				if(data.items[i].AnnualizedNominalReturn3Y !=undefined && data.items[i].AnnualizedNominalReturn3Y!=null){
+                    templateHtmlString += "<td class='col3 hidden-sm hidden-xs' name='AnnualizedNominalReturn3Y'>" + data.items[i].AnnualizedNominalReturn3Y + "%</td>";
+                }
+                else{
+                    templateHtmlString += "<td class='col3 altGry hidden-sm hidden-xs' name='AnnualizedNominalReturn3Y'>-</td>";
+                }
+				if(data.items[i].AnnualizedNominalReturn5Y !=undefined && data.items[i].AnnualizedNominalReturn5Y!=null){
+                    templateHtmlString += "<td class='col3 hidden-sm hidden-xs' name='AnnualizedNominalReturn5Y'>" + data.items[i].AnnualizedNominalReturn5Y + "%</td>";
+                }
+                else{
+                    templateHtmlString += "<td class='col3 altGry hidden-sm hidden-xs' name='AnnualizedNominalReturn5Y'>-</td>";
+                }
+				if(data.items[i].AnnualizedNominalReturn10Y !=undefined && data.items[i].AnnualizedNominalReturn10Y!=null){
+                    templateHtmlString += "<td class='col3 hidden-sm hidden-xs' name='AnnualizedNominalReturn10Y'>" + data.items[i].AnnualizedNominalReturn10Y + "%</td>";
+                }
+                else{
+                    templateHtmlString += "<td class='col3 altGry hidden-sm hidden-xs' name='AnnualizedNominalReturn10Y'>-</td>";
+                }
+				if(data.items[i].AnnualizedNominalReturn10YRank !=undefined && data.items[i].AnnualizedNominalReturn10YRank!=null)
+				{
+				templateHtmlString +="<td class='col3' name='AnnualizedNominalReturn10YRank'>"+data.items[i].AnnualizedNominalReturn10YRank+"</td>"
+				}
+				else{
+				templateHtmlString +="<td class='col3' name='AnnualizedNominalReturn10YRank'>"+data.items[i].AnnualizedNominalReturn10YRank+"</td>";
+				}	
+				if(data.items[i].ExpectedReturn !=undefined && data.items[i].ExpectedReturn!=null){
+                    templateHtmlString += "<td class='col3 hidden-sm hidden-xs' name='ExpectedReturn'>" + data.items[i].ExpectedReturn + "%</td>";
+                }
+                else{
+                    templateHtmlString += "<td class='col3 altGry hidden-sm hidden-xs' name='ExpectedReturn'>-</td>";
+                }
+				
+				if(data.items[i].ExpectedReturnRank != undefined && data.items[i].ExpectedReturnRank != null)
+				{
+					templateHtmlString +="<td class='col3' name='ExpectedReturnRank'>"+data.items[i].ExpectedReturnRank+"<div class='rank'>"
+					
+					if(data.items[i].RankChange>0){
+						templateHtmlString +="<div class='meter-green'></div>"
+					}
+					else{
+						templateHtmlString +="<div class='meter-red red'></div>"
+					}
+					templateHtmlString +="</div>"
+
+				}
+				else{
+					templateHtmlString +="<td class='col3' name='ExpectedReturnRank'>-</td>"
+				}
+				
+			  
+           
+			//templateHtmlString += "<td class='col3 hidden-sm hidden-xs' name='Growth10K'>"+data.items[i].FormattedGrowth10K+"</td>";
+            
+            templateHtmlString += "</tr>";
+            }
+            templateHtmlString += "</tbody></table>";
+            return templateHtmlString;
+           
+        }, 
     
 
         InitializeAndSortColumn: function(thObject) {
@@ -8420,6 +9200,105 @@ AAGlobal.CommoditiesScatterChartConfig.prototype, {
             templateHtmlString += "</table>";
             return templateHtmlString;
         },
+		GetTemplateWithoutMustache:function(asOfDate,data){
+			
+			var historicalHeader = 'Historical Real Total Return<!-- <span class="tableHeaderDate">(as of ' + asOfDate + ')</span>-->';
+        var forecastHeader = 'Forecast Real Return<!-- <span class="tableHeaderDate">(as of ' + GetDataDate() + ')</span>-->';
+			 var templateHtmlString = "<table id='sortableTable' class='tablesorter' width='100%' >";
+            templateHtmlString += '<thead><tr><td colspan="2" class="datatableCaptionempty hidden-sm hidden-xs"></td><td colspan="6" class="datatableCaption hidden-sm hidden-xs">'+historicalHeader+'</td><td colspan="2" class="datatableCaption">'+forecastHeader+'</td></tr>';
+            templateHtmlString += "<tr>";
+            templateHtmlString += '<th scope="col" style="display:none;" name="DisplayOrder">DisplayOrder</th>';
+            templateHtmlString += '<th scope="col"  name="HubPortfolioName">HubPortfolioName</th>';
+            templateHtmlString += '<th scope="col"  name="DisplayName">Index Name<span class="sort-arrow"></span></th>';
+            templateHtmlString += '<th scope="col" class="hidden-sm hidden-xs" name="AnnualizedNominalReturnYTD" style="text-align:center;">YTD<span class="sort-arrow"></span></th>';
+            templateHtmlString += '<th scope="col" class="hidden-sm hidden-xs" name="AnnualizedNominalReturn1Y" style="width: 45px;text-align:center;">1-Year<span class="sort-arrow"></span></th>';
+            templateHtmlString += '<th scope="col" class="hidden-sm hidden-xs" name="AnnualizedNominalReturn3Y" style="text-align:center;">3-Year</br>Annualized<span class="sort-arrow"></span></th>';
+            templateHtmlString += '<th scope="col" class="hidden-sm hidden-xs" name="AnnualizedNominalReturn5Y" style="text-align:center;">5-Year</br>Annualized<span class="sort-arrow"></span></th>';
+            templateHtmlString += '<th scope="col" class="hidden-sm hidden-xs" name="AnnualizedNominalReturn10Y" style="text-align:center;">10-Year</br>Annualized<span class="sort-arrow"></span></th>';
+            templateHtmlString += '<th scope="col" name="AnnualizedNominalReturn10YRank" style="text-align:center;"><div class="hideinDesktop">Historical </div>10-Year</br>Relative Rank<span class="sort-arrow"></span></th>';
+            templateHtmlString += '<th scope="col" class="hidden-sm hidden-xs" name="ExpectedReturn" style="text-align:center;">10-Year</br>Annualized<span class="sort-arrow"></span></th>';
+            templateHtmlString += '<th scope="col" name="ExpectedReturnRank" style="text-align:center;"><div class="hideinDesktop">Forecasted </div>10-Year</br>Relative Rank<span class="sort-arrow"></span></th>';
+            //templateHtmlString += '<th scope="col" class="hidden-sm hidden-xs" name="Growth10K" style="text-align:center;">Growth</br>of $10K<span class="sort-arrow"></span></th>';
+            templateHtmlString += "</tr></thead><tbody>";
+            
+            for(var i=0; i < data.items.length; ++i){
+			
+                templateHtmlString += "<tr>";
+				templateHtmlString += "<td style='display:none;' name='DisplayOrder'>"+data.items[i].DisplayOrder+"</td>";
+                templateHtmlString += "<td style='display:none;' name='HubPortfolioName'>"+data.items[i].HubPortfolioName+"</td><td class='col1 legend' name='DisplayName'>"+data.items[i].DisplayName+"</td>";
+ 
+               if(data.items[i].AnnualizedNominalReturnYTD !=undefined && data.items[i].AnnualizedNominalReturnYTD!=null){
+                    templateHtmlString += "<td class='col3 altGry hidden-sm hidden-xs' name='AnnualizedNominalReturnYTD'>" + data.items[i].AnnualizedNominalReturnYTD + "%</td>";
+                }
+                else{
+                    templateHtmlString += "<td class='col3 altGry hidden-sm hidden-xs' name='AnnualizedNominalReturnYTD'>-</td>";
+                }
+				
+				if(data.items[i].AnnualizedNominalReturn1Y !=undefined && data.items[i].AnnualizedNominalReturn1Y!=null){
+                    templateHtmlString += "<td class='col3 altGry hidden-sm hidden-xs' name='AnnualizedNominalReturn1Y'>" + data.items[i].AnnualizedNominalReturn1Y + "%</td>";
+                }
+                else{
+                    templateHtmlString += "<td class='col3 altGry hidden-sm hidden-xs' name='AnnualizedNominalReturn1Y'>-</td>";
+                }
+				
+				if(data.items[i].AnnualizedNominalReturn3Y !=undefined && data.items[i].AnnualizedNominalReturn3Y!=null){
+                    templateHtmlString += "<td class='col3 hidden-sm hidden-xs' name='AnnualizedNominalReturn3Y'>" + data.items[i].AnnualizedNominalReturn3Y + "%</td>";
+                }
+                else{
+                    templateHtmlString += "<td class='col3 altGry hidden-sm hidden-xs' name='AnnualizedNominalReturn3Y'>-</td>";
+                }
+				if(data.items[i].AnnualizedNominalReturn5Y !=undefined && data.items[i].AnnualizedNominalReturn5Y!=null){
+                    templateHtmlString += "<td class='col3 hidden-sm hidden-xs' name='AnnualizedNominalReturn5Y'>" + data.items[i].AnnualizedNominalReturn5Y + "%</td>";
+                }
+                else{
+                    templateHtmlString += "<td class='col3 altGry hidden-sm hidden-xs' name='AnnualizedNominalReturn5Y'>-</td>";
+                }
+				if(data.items[i].AnnualizedNominalReturn10Y !=undefined && data.items[i].AnnualizedNominalReturn10Y!=null){
+                    templateHtmlString += "<td class='col3 hidden-sm hidden-xs' name='AnnualizedNominalReturn10Y'>" + data.items[i].AnnualizedNominalReturn10Y + "%</td>";
+                }
+                else{
+                    templateHtmlString += "<td class='col3 altGry hidden-sm hidden-xs' name='AnnualizedNominalReturn10Y'>-</td>";
+                }
+				if(data.items[i].AnnualizedNominalReturn10YRank !=undefined && data.items[i].AnnualizedNominalReturn10YRank!=null)
+				{
+				templateHtmlString +="<td class='col3' name='AnnualizedNominalReturn10YRank'>"+data.items[i].AnnualizedNominalReturn10YRank+"</td>"
+				}
+				else{
+				templateHtmlString +="<td class='col3' name='AnnualizedNominalReturn10YRank'>"+data.items[i].AnnualizedNominalReturn10YRank+"</td>";
+				}
+				if(data.items[i].ExpectedReturn !=undefined && data.items[i].ExpectedReturn!=null){
+                    templateHtmlString += "<td class='col3 hidden-sm hidden-xs' name='ExpectedReturn'>" + data.items[i].ExpectedReturn + "%</td>";
+                }
+                else{
+                    templateHtmlString += "<td class='col3 altGry hidden-sm hidden-xs' name='ExpectedReturn'>-</td>";
+                }
+				
+				if(data.items[i].ExpectedReturnRank != undefined && data.items[i].ExpectedReturnRank != null)
+				{
+					templateHtmlString +="<td class='col3' name='ExpectedReturnRank'>"+data.items[i].ExpectedReturnRank+"<div class='rank'>"
+					
+					if(data.items[i].RankChange>0){
+						templateHtmlString +="<div class='meter-green'></div>"
+					}
+					else{
+						templateHtmlString +="<div class='meter-red red'></div>"
+					}
+					templateHtmlString +="</div>"
+				}
+				else{
+					templateHtmlString +="<td class='col3' name='ExpectedReturnRank'>-</td>"
+				}
+			  
+           
+			//templateHtmlString += "<td class='col3 hidden-sm hidden-xs' name='Growth10K'>"+data.items[i].FormattedGrowth10K+"</td>";
+            
+            templateHtmlString += "</tr>";
+            }
+            templateHtmlString += "</tbody></table>";
+            return templateHtmlString;
+           
+        }, 
+    
 
         CustomSortOrder: function(data){
         
@@ -8492,13 +9371,110 @@ AAGlobal.CommoditiesScatterChartConfig.prototype, {
             templateHtmlString += "</table>";
             return templateHtmlString;
         },
+		GetTemplateWithoutMustache:function(asOfDate,data){
+			var historicalHeader = 'Historical Real Total Return<!-- <span class="tableHeaderDate">(as of ' + asOfDate + ')</span>-->';
+			var forecastHeader = 'Forecast Real Return<!-- <span class="tableHeaderDate">(as of ' + GetDataDate() + ')</span>-->';
+               var templateHtmlString = "<table id='sortableTable' class='tablesorter' width='100%' >";
+            
+            templateHtmlString += '<thead><tr><td colspan="2" class="datatableCaptionempty hidden-sm hidden-xs"></td><td colspan="6" class="datatableCaption hidden-sm hidden-xs">'+historicalHeader+'</td><td colspan="2" class="datatableCaption">'+forecastHeader+'</td></tr>';
+            templateHtmlString += "<tr>";
+            templateHtmlString += '<th scope="col"  name="MarketCategory">GroupName</th>';
+            templateHtmlString += '<th scope="col"  name="DisplayName">Portfolio Name<span class="sort-arrow"></span></th>';
+            //templateHtmlString += '<th scope="col" class="hidden-sm hidden-xs" name="Yield" style="text-align:center;">Yield<span class="sort-arrow"></span></th>';
+            templateHtmlString += '<th scope="col" class="hidden-sm hidden-xs" name="AnnualizedNominalReturnYTD" style="text-align:center;">YTD<span class="sort-arrow"></span></th>';
+            templateHtmlString += '<th scope="col" class="hidden-sm hidden-xs" name="AnnualizedNominalReturn1Y" style="width: 45px;text-align:center;">1-Year<span class="sort-arrow"></span></th>';
+            templateHtmlString += '<th scope="col" class="hidden-sm hidden-xs" name="AnnualizedNominalReturn3Y" style="text-align:center;">3-Year</br>Annualized<span class="sort-arrow"></span></th>';
+            templateHtmlString += '<th scope="col" class="hidden-sm hidden-xs" name="AnnualizedNominalReturn5Y" style="text-align:center;">5-Year</br>Annualized<span class="sort-arrow"></span></th>';
+            templateHtmlString += '<th scope="col" class="hidden-sm hidden-xs" name="AnnualizedNominalReturn10Y" style="text-align:center;">10-Year</br>Annualized<span class="sort-arrow"></span></th>';
+            templateHtmlString += '<th scope="col" name="AnnualizedNominalReturn10YRank" style="text-align:center;"><div class="hideinDesktop">Historical </div>10-Year</br>Relative Rank<span class="sort-arrow"></span></th>';
+            templateHtmlString += '<th scope="col" class="hidden-sm hidden-xs" name="ExpectedReturn" style="text-align:center;">10-Year</br>Annualized<span class="sort-arrow"></span></th>';
+            templateHtmlString += '<th scope="col" name="ExpectedReturnRank" style="text-align:center;"><div class="hideinDesktop">Forecasted </div>10-Year</br>Relative Rank<span class="sort-arrow"></span></th>';
+            //templateHtmlString += '<th scope="col" class="hidden-sm hidden-xs" name="Growth10K" style="text-align:center;">Growth</br>of $10K<span class="sort-arrow"></span></th>';
+            templateHtmlString += "</tr></thead><tbody>";
+            
+            for(var i=0; i < data.items.length; ++i){
+			
+                templateHtmlString += "<tr>";
+				templateHtmlString += "<td style='display:none;' name='GroupName'>"+data.items[i].GroupName+"</td>";
+                templateHtmlString += "<td class='col1 legend' name='DisplayName'>"+data.items[i].DisplayName+"</td>";
+ 
+               if(data.items[i].AnnualizedNominalReturnYTD !=undefined && data.items[i].AnnualizedNominalReturnYTD!=null){
+                    templateHtmlString += "<td class='col3 altGry hidden-sm hidden-xs' name='AnnualizedNominalReturnYTD'>" + data.items[i].AnnualizedNominalReturnYTD + "%</td>";
+                }
+                else{
+                    templateHtmlString += "<td class='col3 altGry hidden-sm hidden-xs' name='AnnualizedNominalReturnYTD'>-</td>";
+                }
+				
+				if(data.items[i].AnnualizedNominalReturn1Y !=undefined && data.items[i].AnnualizedNominalReturn1Y!=null){
+                    templateHtmlString += "<td class='col3 altGry hidden-sm hidden-xs' name='AnnualizedNominalReturn1Y'>" + data.items[i].AnnualizedNominalReturn1Y + "%</td>";
+                }
+                else{
+                    templateHtmlString += "<td class='col3 altGry hidden-sm hidden-xs' name='AnnualizedNominalReturn1Y'>-</td>";
+                }
+				
+				if(data.items[i].AnnualizedNominalReturn3Y !=undefined && data.items[i].AnnualizedNominalReturn3Y!=null){
+                    templateHtmlString += "<td class='col3 hidden-sm hidden-xs' name='AnnualizedNominalReturn3Y'>" + data.items[i].AnnualizedNominalReturn3Y + "%</td>";
+                }
+                else{
+                    templateHtmlString += "<td class='col3 altGry hidden-sm hidden-xs' name='AnnualizedNominalReturn3Y'>-</td>";
+                }
+				if(data.items[i].AnnualizedNominalReturn5Y !=undefined && data.items[i].AnnualizedNominalReturn5Y!=null){
+                    templateHtmlString += "<td class='col3 hidden-sm hidden-xs' name='AnnualizedNominalReturn5Y'>" + data.items[i].AnnualizedNominalReturn5Y + "%</td>";
+                }
+                else{
+                    templateHtmlString += "<td class='col3 altGry hidden-sm hidden-xs' name='AnnualizedNominalReturn5Y'>-</td>";
+                }
+				if(data.items[i].AnnualizedNominalReturn10Y !=undefined && data.items[i].AnnualizedNominalReturn10Y!=null){
+                    templateHtmlString += "<td class='col3 hidden-sm hidden-xs' name='AnnualizedNominalReturn10Y'>" + data.items[i].AnnualizedNominalReturn10Y + "%</td>";
+                }
+                else{
+                    templateHtmlString += "<td class='col3 altGry hidden-sm hidden-xs' name='AnnualizedNominalReturn10Y'>-</td>";
+                }
+				if(data.items[i].AnnualizedNominalReturn10YRank !=undefined && data.items[i].AnnualizedNominalReturn10YRank!=null)
+				{
+				templateHtmlString +="<td class='col3' name='AnnualizedNominalReturn10YRank'>"+data.items[i].AnnualizedNominalReturn10YRank+"</td>"
+				}
+				else{
+				templateHtmlString +="<td class='col3' name='AnnualizedNominalReturn10YRank'>"+data.items[i].AnnualizedNominalReturn10YRank+"</td>";
+				}	
+				if(data.items[i].ExpectedReturn !=undefined && data.items[i].ExpectedReturn!=null){
+                    templateHtmlString += "<td class='col3 hidden-sm hidden-xs' name='ExpectedReturn'>" + data.items[i].ExpectedReturn + "%</td>";
+                }
+                else{
+                    templateHtmlString += "<td class='col3 altGry hidden-sm hidden-xs' name='ExpectedReturn'>-</td>";
+                }
+				
+				if(data.items[i].ExpectedReturnRank != undefined && data.items[i].ExpectedReturnRank != null)
+				{
+					templateHtmlString +="<td class='col3' name='ExpectedReturnRank'>"+data.items[i].ExpectedReturnRank+"<div class='rank'>"
+					
+					if(data.items[i].RankChange>0){
+						templateHtmlString +="<div class='meter-green'></div>"
+					}
+					else{
+						templateHtmlString +="<div class='meter-red red'></div>"
+					}
+					templateHtmlString +="</div>"
+				}
+				else{
+					templateHtmlString +="<td class='col3' name='ExpectedReturnRank'>-</td>"
+				}
+				
+			  
+           
+			//templateHtmlString += "<td class='col3 hidden-sm hidden-xs' name='Growth10K'>"+data.items[i].FormattedGrowth10K+"</td>";
+            
+            templateHtmlString += "</tr>";
+            }
+            templateHtmlString += "</tbody></table>";
+            return templateHtmlString;
+           
+        }, 
 
         InitializeAndSortColumn: function(thObject) {
         }
 
     });
-
-})(jQuery);
 function RegisterTooltipClose()
 {
     $(".tooltipClose").click(function(e){
@@ -8606,7 +9582,7 @@ function PopulateExportChartConfig(chart, tooltipPoint, showAssetAllocation) {
 	}
 }
 String.prototype.width = function(font) {
-  var f = font || '12px PT Sans',
+  var f = font || '14px "Whitney A", "Whitney B"',
       o = $('<div>' + this + '</div>')
             .css({'position': 'absolute', 'float': 'left','text-transform':'Uppercase', 'white-space': 'nowrap', 'visibility': 'hidden', 'font': f})
             .appendTo($('body')),

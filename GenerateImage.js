@@ -1,4 +1,4 @@
-﻿
+
 if (!JSON)
     JSON = {};
 // implement JSON.stringify serialization
@@ -34,11 +34,10 @@ JSON.stringify = JSON.stringify || function (obj) {
 
     $.fn.extend({
         generateImage: function (format, csvString, exportFileName,postData) {
-
             var action, output_format, data, callback, fileName;
 									
 			var cookieDomain = window.location.hostname.substr(window.location.hostname.indexOf('.'), window.location.hostname.length);
-			
+			var damPath = '/content/ra/config/region/en_US/asset_allocation_image/';
 			//if(typeof exportConfigHost == 'undefined' || exportConfigHost == null) {
 				
 				var firstPart = window.location.hostname.substr(0, window.location.hostname.indexOf('.'));
@@ -51,7 +50,7 @@ JSON.stringify = JSON.stringify || function (obj) {
 				}else{
 					firstPart += '-export';
 				}
-				var exportConfigHost = firstPart + secondPart;
+				var exportConfigHost = "10.209.52.240:90";//firstPart + secondPart;
 			//}
 			
             if (format == 'CSV') {
@@ -85,10 +84,12 @@ JSON.stringify = JSON.stringify || function (obj) {
 					// data = highChart.userOptions.hiddenFieldOptions;
                     callback = highChart.userOptions.customCallback;
                 } else {
+                    console.log(csvString);
                     action = baseballCardAction;
                     output_format = format;
                     var portNo = location.port && location.port != '' ? (':' + location.port) : '';
-                    data = 'http://' + window.location.hostname + portNo + '/assetallocation/_layouts/RA.AAMicrosite.Branding/AAGenerateImage.aspx?' + csvString;
+                    //data = 'http://10.209.86.23:9000/highcharts.html?filtersStart' + csvString + "filtersEnd";
+                    data = window.location.origin + damPath + window.chartType.toLowerCase() + ".html" + "?filtersStart" + csvString + "filtersEnd";
                 }
                 if (exportFileName != null && exportFileName != undefined) {
                     fileName = exportFileName + "_" + $(this).attr('name');
@@ -106,7 +107,7 @@ JSON.stringify = JSON.stringify || function (obj) {
 			else{
              strData = { 'output_format': output_format, 'data': data, 'customCallback': callback, 'file_name': fileName, 'cookieDomain': cookieDomain };
 			}
-            $('body').showWaitingPopup('generateImagePopup');
+            //$('body').showWaitingPopup('generateImagePopup');
             $.fileDownload(action, {
                 httpMethod: "POST",
 				cookieDomain: cookieDomain,

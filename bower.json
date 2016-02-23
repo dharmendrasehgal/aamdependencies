@@ -4,7 +4,7 @@
     "dsehgal <dsehgal@sapient.com>"
   ],
   "description": "",
-  "main": "AAMInfographicsCustom.min.js",
+  "main": "highcharts.js",
   "moduleType": [],
   "keywords": [
     "testbower"
@@ -19,6 +19,6 @@
     "tests"
   ],
   "dependencies": {
-    "jquery-1.7.2": "http://code.jquery.com/jquery-1.7.2.js"
+    
   }
 }

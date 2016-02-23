@@ -3,6 +3,7 @@
     $.fn.extend({
         //pass the options variable to the function
         loadSimpleTableView: function (data, options) {
+			
             var me = this;
             var defaults = new AAGlobal[options.defaults](me);
             var options = $.extend(true, defaults, options);
@@ -16,7 +17,8 @@
                 options.CustomSortOrder(data);
             var data = { items: $(data).toArray() };
 
-            $(me).html(Mustache.to_html(options.GetTemplate(asOfDate), data));
+            //$(me).html(Mustache.to_html(options.GetTemplate(asOfDate), data));
+			$(me).html(options.GetTemplateWithoutMustache(asOfDate,data));
             // $(me).css({ 'position': 'relative', 'overflow': 'auto', 'height': options.Height + 'px', 'max-width': options.Width + 'px' });
 
 
@@ -40,7 +42,7 @@
 
     });
 
-    jQuery.extend( jQuery.fn.dataTableExt.oSort, {
+   /* jQuery.extend( jQuery.fn.dataTableExt.oSort, {
         "natural-asc": function ( a, b ) {
             return naturalSorter(a,b);
         },
@@ -48,5 +50,5 @@
         "natural-desc": function ( a, b ) {
             return naturalSorter(a,b) * -1;
         }
-    });
+    });*/
 })(jQuery);

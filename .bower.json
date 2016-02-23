@@ -1,0 +1,33 @@
+{
+  "name": "aamdependencies",
+  "authors": [
+    "dsehgal <dsehgal@sapient.com>"
+  ],
+  "description": "",
+  "main": "highcharts.js",
+  "moduleType": [],
+  "keywords": [
+    "testbower"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/dharmendrasehgal/aamdependencies",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    
+  },
+  "_release": "859041749b",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "859041749b4ea9a795ba85c4de293a5724fa1747"
+  },
+  "_source": "git://github.com/dharmendrasehgal/aamdependencies.git",
+  "_target": "*",
+  "_originalSource": "aamdependenciespkg"
+}
